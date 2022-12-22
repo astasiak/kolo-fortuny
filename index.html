@@ -1,0 +1,1179 @@
+<html>
+    <head>
+        <title>Koło fortuny</title>
+        <script>
+            currentPuzzle = null;
+            stage = 0;
+            shownLetters = '';
+            puzzles = [
+                {"text": "NA UPÓR NIE MA LEKARSTWA", "category": "PRZYSŁOWIE"},
+                {"text": "CIEŚNINA GIBRALTARSKA", "category": "GEOGRAFIA"},
+                {"text": "DZIURAWE PRAWO", "category": "LEGISLACJA"},
+                {"text": "CHŁOPCY Z FERAJNY", "category": "FILM"},
+                {"text": "ZBIÓRKA ODZIEŻY UŻYWANEJ", "category": "AKCJA"},
+                {"text": "SKLEPY CYNAMONOWE", "category": "LITERATURA"},
+                {"text": "STOPIEŃ NAUKOWY DOKTORA", "category": "KARIERA"},
+                {"text": "NOWOJORSKIE DRAPACZE CHMUR", "category": "ARCHITEKTURA"},
+                {"text": "NIEBIESKI PTAK", "category": "OSOBA"},
+                {"text": "STRZELEC WYBOROWY", "category": "WOJSKO"},
+                {"text": "MISTRZOWSKIE TURNIEJE SZACHOWE", "category": "SPORT"},
+                {"text": "GRUPA KAPITAŁOWA", "category": "GOSPODARKA"},
+                {"text": "TO NIE JEST KRAJ DLA STARYCH LUDZI", "category": "FILM"},
+                {"text": "LOT NAD KUKUŁCZYM GNIAZDEM", "category": "FILM"},
+                {"text": "MECHANICZNA POMARAŃCZA", "category": "FILM"},
+                {"text": "OJCIEC CHRZESTNY", "category": "FILM"},
+                {"text": "DWUNASTU GNIEWNYCH LUDZI", "category": "FILM"},
+                {"text": "CZŁOWIEK Z BLIZNĄ", "category": "FILM"},
+                {"text": "DAWNO TEMU W AMERYCE", "category": "FILM"},
+                {"text": "SZYNKA W SOSIE CHRZANOWYM", "category": "KUCHNIA"},
+                {"text": "NALEŚNIKI Z JABŁKAMI", "category": "KUCHNIA"},
+                {"text": "PLACEK PO WĘGIERSKU", "category": "KUCHNIA"},
+                {"text": "JAJA SMAŻONE W SKORUPKACH", "category": "KUCHNIA"},
+                {"text": "PASZTECIKI Z KAPUSTĄ I PIECZARKAMI", "category": "KUCHNIA"},
+                {"text": "CHŁODNIK LITEWSKI", "category": "KUCHNIA"},
+                {"text": "BIGOS Z MŁODEJ KAPUSTY", "category": "KUCHNIA"},
+                {"text": "TRADYCYJNY BARSZCZ WIGILIJNY", "category": "KUCHNIA"},
+                {"text": "KOTLETY Z PIERSI KURCZAKA", "category": "KUCHNIA"},
+                {"text": "ZUPA KALAFIOROWA Z MARCHEWKĄ", "category": "KUCHNIA"},
+                {"text": "FASOLA ZAPIEKANA Z CEBULKĄ", "category": "KUCHNIA"},
+                {"text": "JAJKA FASZEROWANE PIECZARKAMI", "category": "KUCHNIA"},
+                {"text": "APETYT ROŚNIE W MIARĘ JEDZENIA", "category": "POWIEDZENIE"},
+                {"text": "BUDOWAĆ ZAMKI NA PIASKU", "category": "POWIEDZENIE"},
+                {"text": "BRAĆ NOGI ZA PAS", "category": "POWIEDZENIE"},
+                {"text": "CO DWIE GŁOWY TO NIE JEDNA", "category": "POWIEDZENIE"},
+                {"text": "CO ZA DUŻO TO NIEZDROWO", "category": "POWIEDZENIE"},
+                {"text": "CZUĆ SIĘ JAK RYBA W WODZIE", "category": "POWIEDZENIE"},
+                {"text": "DLA CHCĄCEGO NIC TRUDNEGO", "category": "POWIEDZENIE"},
+                {"text": "DZIECI I RYBY GŁOSU NIE MAJĄ", "category": "POWIEDZENIE"},
+                {"text": "GDZIE DRWA RĄBIĄ TAM WIÓRY LECĄ", "category": "POWIEDZENIE"},
+                {"text": "KŁAMSTWO MA KRÓTKIE NOGI", "category": "POWIEDZENIE"},
+                {"text": "KTO MIECZEM WOJUJE OD MIECZA GINIE", "category": "POWIEDZENIE"},
+                {"text": "MIEĆ DWIE LEWE RĘCE", "category": "POWIEDZENIE"},
+                {"text": "NIEDALEKO PADA JABŁKO OD JABŁONI", "category": "POWIEDZENIE"},
+                {"text": "OD PIWA GŁOWA SIĘ KIWA", "category": "POWIEDZENIE"},
+                {"text": "PASOWAĆ JAK PIĘŚĆ DO NOSA", "category": "POWIEDZENIE"},
+                {"text": "HISTORIA LUBI SIĘ POWTARZAĆ", "category": "POWIEDZENIE"},
+                {"text": "PRZYSZŁA KRYSKA NA MATYSKA", "category": "POWIEDZENIE"},
+                {"text": "STRZEŻONEGO PAN BÓG STRZEŻE", "category": "POWIEDZENIE"},
+                {"text": "SZEWC BEZ BUTÓW CHODZI", "category": "POWIEDZENIE"},
+                {"text": "TONĄCY BRZYTWY SIĘ CHWYTA", "category": "POWIEDZENIE"},
+                {"text": "ZAPOMNIAŁ WÓŁ JAK CIELĘCIEM BYŁ", "category": "POWIEDZENIE"},
+                {"text": "MIŁOŚĆ W CZASACH ZARAZY", "category": "LITERATURA"},
+                {"text": "STARY CZŁOWIEK I MORZE", "category": "LITERATURA"},
+                {"text": "CZARODZIEJSKA GÓRA", "category": "LITERATURA"},
+                {"text": "W POSZUKIWANIU STRACONEGO CZASU", "category": "LITERATURA"},
+                {"text": "PRZEMINĘŁO Z WIATREM", "category": "LITERATURA"},
+                {"text": "ANIA Z ZIELONEGO WZGÓRZA", "category": "LITERATURA"},
+                {"text": "ZIELONE PŁUCA POLSKI", "category": "REGION"},
+                {"text": "FRANCUSCY IMPRESJONIŚCI", "category": "MALARSTWO"},
+                {"text": "BABA Z WOZU KONIOM LŻEJ", "category": "POWIEDZENIE"},
+                {"text": "CO KRAJ TO OBYCZAJ", "category": "POWIEDZENIE"},
+                {"text": "CHYTRY DWA RAZY TRACI", "category": "POWIEDZENIE"},
+                {"text": "NIE CHWAL DNIA PRZED ZACHODEM SŁOŃCA", "category": "POWIEDZENIE"},
+                {"text": "NIE TAKI DIABEŁ STRASZNY JAK GO MALUJĄ", "category": "POWIEDZENIE"},
+                {"text": "GDZIE KUCHAREK SZEŚĆ TAM NIE MA CO JEŚĆ", "category": "POWIEDZENIE"},
+                {"text": "JAK SOBIE POŚCIELISZ TAK SIĘ WYŚPISZ", "category": "POWIEDZENIE"},
+                {"text": "PRAWDZIWYCH PRZYJACIÓŁ POZNAJE SIĘ W BIEDZIE", "category": "POWIEDZENIE"},
+                {"text": "PALUSZEK I GŁÓWKA TO SZKOLNA WYMÓWKA", "category": "POWIEDZENIE"},
+                {"text": "DOBRY, ZŁY I BRZYDKI", "category": "FILM"},
+                {"text": "ŁOWCA ANDROIDÓW", "category": "FILM"},
+                {"text": "BULWAR ZACHODZĄCEGO SŁOŃCA", "category": "FILM"},
+                {"text": "RĘKOPIS ZNALEZIONY W SARAGOSSIE", "category": "FILM"},
+                {"text": "CZŁOWIEK Z ŻELAZA", "category": "FILM"},
+                {"text": "POPIÓŁ I DIAMENT", "category": "FILM"},
+                {"text": "PUSTYNIA BŁĘDOWSKA", "category": "GEOGRAFIA"},
+                {"text": "DEMOKRATYCZNA REPUBLIKA KONGA", "category": "GEOGRAFIA"},
+                {"text": "ZAĆMIENIE KSIĘŻYCA", "category": "ASTRONOMIA"},
+                {"text": "GWIAZDA ZMIENNA ZAĆMIENIOWA", "category": "ASTRONOMIA"},
+                {"text": "GALAKTYKA SPIRALNA", "category": "ASTRONOMIA"},
+                {"text": "BEZCHMURNE NOCNE NIEBO", "category": "ASTRONOMIA"},
+                {"text": "RUCHY PŁYT TEKTONICZNYCH", "category": "GEOGRAFIA"},
+                {"text": "RAFY KORALOWE W EGIPCIE", "category": "GEOGRAFIA"},
+                {"text": "MISTRZOSTWA EUROPY W LEKKOATLETYCE", "category": "SPORT"},
+                {"text": "REZONANS ORBITALNY KSIĘŻYCÓW JOWISZA", "category": "ASTRONOMIA"},
+                {"text": "WYBORY PREZYDENCKIE", "category": "POLITYKA"},
+                {"text": "CIASTECZKA W KSZTAŁCIE SERCA", "category": "KUCHNIA"},
+                {"text": "MORZE KARAIBSKIE", "category": "GEOGRAFIA"},
+                {"text": "WYBRZEŻE KOŚCI SŁONIOWEJ", "category": "GEOGRAFIA"},
+                {"text": "WYSPY ZIELONEGO PRZYLĄDKA", "category": "GEOGRAFIA"},
+                {"text": "MACEDONIA PÓŁNOCNA", "category": "GEOGRAFIA"},
+                {"text": "EUROPEJSKA WSPÓLNOTA WĘGLA I STALI", "category": "POLITYKA"},
+                {"text": "WYBUCH POWSTANIA STYCZNIOWEGO", "category": "HISTORIA"},
+                {"text": "WOJNA SECESYJNA W AMERYCA", "category": "HISTORIA"},
+                {"text": "OBRADY SEJMU CZTEROLETNIEGO", "category": "HISTORIA"},
+                {"text": "OGŁOSZENIE KONSTYTUCJI FRANCUSKIEJ", "category": "HISTORIA"},
+                {"text": "AMERYKAŃSKA DEKLARACJA NIEPODLEGŁOŚCI", "category": "HISTORIA"},
+                {"text": "WOJNA POLSKO-SZWEDZKA", "category": "HISTORIA"},
+                {"text": "ELEKCYJNY KRÓL POLSKI", "category": "HISTORIA"},
+                {"text": "UPADEK CESARSTWA RZYMSKIEGO", "category": "HISTORIA"},
+                {"text": "POWSTANIE KSIĘSTWA WARSZAWSKIEGO", "category": "HISTORIA"},
+                {"text": "KONFEDERACJA TARGOWICKA", "category": "HISTORIA"},
+                {"text": "BITWA POD GRUNWALDEM", "category": "HISTORIA"},
+                {"text": "KAPLICA SYKSTYŃSKA", "category": "SZTUKA"},
+                {"text": "OBRAZ OLEJNY NA PŁÓTNIE", "category": "MALARSTWO"},
+                {"text": "RZEŹBA ABSTRAKCYJNA", "category": "SZTUKA"},
+                {"text": "PRALKA AUTOMATYCZNA", "category": "SPRZĘT"},
+                {"text": "WYCIECZKA ROWEROWA DO LASU", "category": "HOBBY"},
+                {"text": "ROZWIĄZYWANIE ZAGADEK LOGICZNYCH", "category": "HOBBY"},
+                {"text": "BIEG MARATOŃSKI W NOWYM JORKU", "category": "SPORT"},
+                {"text": "FIZYKA CZĄSTEK ELEMENTARNYCH", "category": "NAUKA"},
+                {"text": "ROZWIĄZANIE RÓWNANIA LINIOWEGO", "category": "MATEMATYKA"},
+                {"text": "REKORD ŚWIATA W SKOKU O TYCZCE", "category": "SPORT"},
+                {"text": "NOCLEG NA POLU NAMIOTOWYCH", "category": "WAKACJE"},
+                {"text": "MSZA NIEDZIELNA W KOŚCIELE", "category": "RELIGIA"},
+                {"text": "RĘCZNIE ROBIONE PRALINY", "category": "HOBBY"},
+                {"text": "KRÓLESTWO ARABII SAUDYJSKIEJ", "category": "GEOGRAFIA"},
+                {"text": "POLSKA RZECZPOSPOLITA LUDOWA", "category": "HISTORIA"},
+                {"text": "FOTOGRAFIA AMATORSKA", "category": "HOBBY"},
+                {"text": "ŁOWIENIE RYB W JEZIORZE", "category": "HOBBY"},
+                {"text": "WIELODNIOWE WĘDRÓWKI GÓRSKIE", "category": "HOBBY"},
+                {"text": "KOLEKCJONOWANIE ZNACZKÓW", "category": "HOBBY"},
+                {"text": "ZAKŁADY BUKMACHERSKIE", "category": "HOBBY"},
+                {"text": "GRZYBOBRANIE W LESIE", "category": "HOBBY"},
+                {"text": "GRA NA INSTRUMENTACH PERKUSYJNYCH", "category": "HOBBY"},
+                {"text": "KOŁO GOSPODYŃ WIEJSKICH", "category": "HOBBY"},
+                {"text": "ZŁOTA POLSKA JESIEŃ", "category": "PRZYRODA"},
+                {"text": "SEN ZIMOWY NIEDŹWIEDZI", "category": "PRZYRODA"},
+                {"text": "PUSZCZA AMAZOŃSKA", "category": "PRZYRODA"},
+                {"text": "SZELF KONTYNENTALNY", "category": "GEOGRAFIA"},
+                {"text": "WYSPY ŚWIĘTEGO PIOTRA I PAWŁA", "category": "GEOGRAFIA"},
+                {"text": "POLSKIE TOWARZYSTWO GEOGRAFICZNE", "category": "GEOGRAFIA"},
+                {"text": "WIELKIE ODKRYCIA GEOGRAFICZNE", "category": "HISTORIA"},
+                {"text": "LEKCJA WYCHOWAWCZA", "category": "SZKOŁA"},
+                {"text": "KLASÓWKA Z MATEMATYKI", "category": "SZKOŁA"},
+                {"text": "POKÓJ NAUCZYCIELSKI", "category": "SZKOŁA"},
+                {"text": "WYCIECZKA KLASOWA", "category": "SZKOŁA"},
+                {"text": "ZEBRANIE Z RODZICAMI", "category": "SZKOŁA"},
+                {"text": "EGZAMIN MATURALNY Z FIZYKI", "category": "SZKOŁA"},
+                {"text": "KOŁO ZAINTERESOWAŃ Z CHEMII", "category": "SZKOŁA"},
+                {"text": "INDYWIDUALNY PROGRAM NAUCZANIA", "category": "SZKOŁA"},
+                {"text": "DOBROWOLNE PODDANIE SIĘ KARZE", "category": "PRAWO"},
+                {"text": "IMMUNITET PROKURATORSKI", "category": "PRAWO"},
+                {"text": "INTERES POSTĘPOWANIA PRZYGOTOWAWCZEGO", "category": "PRAWO"},
+                {"text": "JAWNOŚĆ PROCESU KARNEGO", "category": "PRAWO"},
+                {"text": "OKOLICZNOŚĆ WYŁĄCZAJĄCA WINĘ", "category": "PRAWO"},
+                {"text": "OSKARŻYCIEL POSIŁKOWY", "category": "PRAWO"},
+                {"text": "POSTĘPOWANIE PRZYGOTOWAWCZE", "category": "PRAWO"},
+                {"text": "PORĘCZENIE MAJĄTKOWE", "category": "PRAWO"},
+                {"text": "POZBAWIENIE PRAW PUBLICZNYCH", "category": "PRAWO"},
+                {"text": "PRZESTĘPSTWA ŚCIGANE Z URZĘDU", "category": "PRAWO"},
+                {"text": "STAN WYŻSZEJ KONIECZNOŚCI", "category": "PRAWO"},
+                {"text": "TYMCZASOWE ARESZTOWANIE", "category": "PRAWO"},
+                {"text": "WARUNKOWE UMORZENIE POSTĘPOWANIA KARNEGO", "category": "PRAWO"},
+                {"text": "ZABEZPIECZENIE MAJĄTKOWE", "category": "PRAWO"},
+                {"text": "KOSZTY UZYSKANIA PRZYCHODU", "category": "PODATKI"},
+                {"text": "LINIOWA METODA AMORTYZACJI", "category": "PODATKI"},
+                {"text": "MOMENT POWSTANIA OBOWIĄZKU PODATKOWEGO", "category": "PRAWO"},
+                {"text": "NACZELNY SĄD ADMINISTRACYJNY", "category": "PODATKI"},
+                {"text": "NUMER IDENTYFIKACJI PODATKOWEJ", "category": "PODATKI"},
+                {"text": "ORGANY KONTROLI SKARBOWEJ", "category": "PODATKI"},
+                {"text": "PODATEK OD CZYNNOŚCI CYWILNOPRAWNYCH", "category": "PRAWO"},
+                {"text": "PRAWO ZACHOWANIA ENERGII", "category": "FIZYKA"},
+                {"text": "ATOMOWA JEDNOSTKA MASY", "category": "CHEMIA"},
+                {"text": "A KOCI OGON, NIE PAPIEROSA", "category": "POWIEDZENIE"},
+                {"text": "ADAM I EWA POKAZUJĄ, JAKI STYCZEŃ I LUTY PO NICH NASTĘPUJĄ", "category": "POWIEDZENIE"},
+                {"text": "AFEKTY, CHOCIAŻ BĘDĄ ŚWIĘTE, ROZUMEM MAJĄ BYĆ UJĘTE", "category": "POWIEDZENIE"},
+                {"text": "ALBO RYBKA, ALBO PIPKA", "category": "POWIEDZENIE"},
+                {"text": "ALBO RYBKI, ALBO AKWARIUM", "category": "POWIEDZENIE"},
+                {"text": "ANI MNIE TO ZIĘBI, ANI GRZEJE", "category": "POWIEDZENIE"},
+                {"text": "ANI STOŁKA ANI KOŁKA", "category": "POWIEDZENIE"},
+                {"text": "ANI W BOGA WIERZY, ANI SIĘ DIABŁA BOI", "category": "POWIEDZENIE"},
+                {"text": "APETYT ROŚNIE W MIARĘ JEDZENIA", "category": "POWIEDZENIE"},
+                {"text": "BABA W PROGI, CISZA W NOGI", "category": "POWIEDZENIE"},
+                {"text": "BABA Z WOZU, KONIOM LŻEJ", "category": "POWIEDZENIE"},
+                {"text": "BARBARA PO WODZIE, BOŻE NARODZENIE PO LODZIE", "category": "POWIEDZENIE"},
+                {"text": "BĄDŹ OSZCZĘDNYM, ABYŚ MÓGŁ BYĆ SZCZODRYM", "category": "POWIEDZENIE"},
+                {"text": "BECZKĘ SOLI ZJESZ ZANIM CZŁOWIEKA POZNASZ", "category": "POWIEDZENIE"},
+                {"text": "BEZ BOGA ANI DO PROGA", "category": "POWIEDZENIE"},
+                {"text": "BEZ CIEKAWOŚCI NIE MA MĄDROŚCI", "category": "POWIEDZENIE"},
+                {"text": "BEZ CZEGO MOŻESZ ŻYĆ, ZANIECHAJ", "category": "POWIEDZENIE"},
+                {"text": "BEZ GARNKA NIE ZROBI ZUPY KUCHARKA", "category": "POWIEDZENIE"},
+                {"text": "BEZ GRZMOTU PIORUNY SZKODLIWSZE", "category": "POWIEDZENIE"},
+                {"text": "BEZ KOŻUCHA BIERZE SKRUCHA", "category": "POWIEDZENIE"},
+                {"text": "BEZ KSIĄŻEK DO SZKOŁY, BEZ PIENIĘDZY NA TARG NIE CHODŹ", "category": "POWIEDZENIE"},
+                {"text": "BEZ LUDZI I RAJ SIĘ ZNUDZI", "category": "POWIEDZENIE"},
+                {"text": "BEZ MIESZKA KROKU NIE ZROBISZ", "category": "POWIEDZENIE"},
+                {"text": "BEZ NAUKI I ŁAPCIÓW NIE UPLECIE", "category": "POWIEDZENIE"},
+                {"text": "BEZ PIENIĘDZY NAWET TRUDNO UMRZEĆ", "category": "POWIEDZENIE"},
+                {"text": "BEZ PRACY NIE MA KOŁACZY", "category": "POWIEDZENIE"},
+                {"text": "BEZ SOLI SMUTNA BIESIADA", "category": "POWIEDZENIE"},
+                {"text": "BEZ WOLI BOSKIEJ I WŁOS Z GŁOWY NIE SPADNIE", "category": "POWIEDZENIE"},
+                {"text": "BEZPIECZNIEJ JEST MILCZEĆ, NIŻ MÓWIĆ", "category": "POWIEDZENIE"},
+                {"text": "BEZPIECZNIEJ SIEDZIEĆ W DOMU NIŻ NA JĘZYKU", "category": "POWIEDZENIE"},
+                {"text": "BĘBEN DLATEGO TAK GŁOŚNY, BO PRÓŻNY", "category": "POWIEDZENIE"},
+                {"text": "BĘDZIE Z NIEGO KSIĄDZ JAK Z DIABŁA KOŚCIELNY", "category": "POWIEDZENIE"},
+                {"text": "BĘDZIE POGODA, JAK SIĘ NIE POLEJE Z NIEBA WODA", "category": "POWIEDZENIE"},
+                {"text": "BIEDA BIEDĘ RODZI", "category": "POWIEDZENIE"},
+                {"text": "BIEDA BIEDNEMU ŻYĆ W ŚWIECIE SAMEMU", "category": "POWIEDZENIE"},
+                {"text": "BIEDA ŁATWIEJ LUDZI PRZEKUWA NIŻ KOWAL - ŻELAZO", "category": "POWIEDZENIE"},
+                {"text": "BIEDA NIGDY SAMA NIE PRZYCHODZI", "category": "POWIEDZENIE"},
+                {"text": "BIEDA TEMU DOKUCZY, KTO SIĘ ZA MŁODU NIE UCZY", "category": "POWIEDZENIE"},
+                {"text": "BIEDĘ KUPUJE, KTO SŁOMĘ MARNUJE", "category": "POWIEDZENIE"},
+                {"text": "BIEDNEMU DRZWI SIĘ TWARDO WSZĘDZIE OTWIERAJĄ", "category": "POWIEDZENIE"},
+                {"text": "BIEDNEMU ZAWSZE POD GÓRĘ", "category": "POWIEDZENIE"},
+                {"text": "BIEDNEMU ZAWSZE WIATR W OCZY", "category": "POWIEDZENIE"},
+                {"text": "BIEDNY TYLKO W DZIECI BOGATY", "category": "POWIEDZENIE"},
+                {"text": "BIEDZIE SWEJ NIE PORADZI, KTO SIĘ Z SĄSIADY WADZI", "category": "POWIEDZENIE"},
+                {"text": "BITEMU PSU NIE POKAZUJ KIJA", "category": "POWIEDZENIE"},
+                {"text": "BLIŻSZA KOSZULA CIAŁU NIŻ KAFTAN", "category": "POWIEDZENIE"},
+                {"text": "BLIŻSZA KOSZULA CIAŁU NIŻ SUKMANA", "category": "POWIEDZENIE"},
+                {"text": "BŁĘDÓW NIE ROBI TEN CO NIC NIE ROBI", "category": "POWIEDZENIE"},
+                {"text": "BŁOGO JEST ŻYĆ POD PASTORAŁEM", "category": "POWIEDZENIE"},
+                {"text": "BOCIEK JEST WIOSNY WIEST", "category": "POWIEDZENIE"},
+                {"text": "BOGA, CHLEBA, DOBRYCH GOŚCI", "category": "POWIEDZENIE"},
+                {"text": "BOGACTW PRZYBYWA, CNOTY UBYWA", "category": "POWIEDZENIE"},
+                {"text": "BOGACTWA GŁUPIEMU ROZKAZUJĄ, MĄDREMU SĄ POSŁUSZNE", "category": "POWIEDZENIE"},
+                {"text": "BOGATEMU DIABEŁ DZIECI KOŁYSZE", "category": "POWIEDZENIE"},
+                {"text": "BOGU I MAMONIE SŁUŻYĆ RAZEM NIE MOŻNA", "category": "POWIEDZENIE"},
+                {"text": "BOGU ŚWIECZKA, A DIABŁU OGAREK", "category": "POWIEDZENIE"},
+                {"text": "BOGU WOLA, CHŁOPU ROLA, PANU CZYNSZ, A KSIĘDZU MESZNE", "category": "POWIEDZENIE"},
+                {"text": "BOJAŹLIWY NIC WIELKIEGO NIE SPRAWI", "category": "POWIEDZENIE"},
+                {"text": "BOJAŹŃ USTAWICZNA - CIĘŻKA", "category": "POWIEDZENIE"},
+                {"text": "BOŻE DAJ, BOŻE DAJ, ABY WIECZNIE TRWAŁ NAM MAJ", "category": "POWIEDZENIE"},
+                {"text": "BOŻE NARODZENIE PO WODZIE, WIELKANOC PO LODZIE", "category": "POWIEDZENIE"},
+                {"text": "BÓG BYŁ BOGIEM, A MIAŁ NIEPRZYJACIÓŁ", "category": "POWIEDZENIE"},
+                {"text": "BÓG DAJE DZIECI I BÓG JE ODBIERA", "category": "POWIEDZENIE"},
+                {"text": "BÓG DAŁ, BÓG WZIĄŁ", "category": "POWIEDZENIE"},
+                {"text": "BÓG KUBIE OCZY NIE WYDŁUBIE", "category": "POWIEDZENIE"},
+                {"text": "BÓG POMAGA TYM, CO SAMI SOBIE POMAGAJĄ", "category": "POWIEDZENIE"},
+                {"text": "BÓG SIĘ TAKIM BRZYDZI, KTO SIĘ OJCA WSTYDZI", "category": "POWIEDZENIE"},
+                {"text": "BÓJ SIĘ W STYCZNIU WIOSNY, BO MARZEC ZAZDROSNY", "category": "POWIEDZENIE"},
+                {"text": "BRODA MĘDRCEM NIE CZYNI", "category": "POWIEDZENIE"},
+                {"text": "BRUDNĄ BIELIZNĘ W DOMU PRAĆ TRZEBA", "category": "POWIEDZENIE"},
+                {"text": "BRZĘCZY MUCHA, KIEDY W MIODZIE TONIE", "category": "POWIEDZENIE"},
+                {"text": "BYLI ŚWIĘCI PRZED NAMI, BĘDĄ I PÓŹNIEJ", "category": "POWIEDZENIE"},
+                {"text": "BYŁ OBRAZ, ALE OBLAZŁ", "category": "POWIEDZENIE"},
+                {"text": "CAŁA MĄDROŚĆ NIE MIEŚCI SIĘ W JEDNEJ GŁOWIE", "category": "POWIEDZENIE"},
+                {"text": "CEL UŚWIĘCA ŚRODKI", "category": "POWIEDZENIE"},
+                {"text": "CHCIEĆ TO MÓC", "category": "POWIEDZENIE"},
+                {"text": "CHCIWY DWA RAZY TRACI", "category": "POWIEDZENIE"},
+                {"text": "CHLEB I WODA, NIE MA GŁODA", "category": "POWIEDZENIE"},
+                {"text": "CHŁOP POTĘGĄ JEST I BASTA", "category": "POWIEDZENIE"},
+                {"text": "CHOĆ JUŻ W KWIETNIU SŁONKO GRZEJE, NIERAZ POLE ŚNIEG ZAWIEJE", "category": "POWIEDZENIE"},
+                {"text": "CIĄGNIE WILKA DO LASU", "category": "POWIEDZENIE"},
+                {"text": "CICHA WODA BRZEGI RWIE", "category": "POWIEDZENIE"},
+                {"text": "CIEKAWOŚĆ TO PIERWSZY STOPIEŃ DO PIEKŁA", "category": "POWIEDZENIE"},
+                {"text": "CIERP CIAŁO, KIEDYŚ CHCIAŁO", "category": "POWIEDZENIE"},
+                {"text": "CIERPLIWOŚCIĄ I PRACĄ LUDZIE SIĘ BOGACĄ", "category": "POWIEDZENIE"},
+                {"text": "CO CIAŁO LUBI, TO DUSZĘ GUBI", "category": "POWIEDZENIE"},
+                {"text": "CO CZŁOWIEK BUDUJE, TO MU CZAS RUJNUJE", "category": "POWIEDZENIE"},
+                {"text": "CO DOKUCZY, TO NAUCZY", "category": "POWIEDZENIE"},
+                {"text": "CO DWIE GŁOWY, TO NIE JEDNA", "category": "POWIEDZENIE"},
+                {"text": "CO GŁOWA, TO ROZUM", "category": "POWIEDZENIE"},
+                {"text": "CO GODZINA, TO NOWINA", "category": "POWIEDZENIE"},
+                {"text": "CO JEDEN GŁUPI KUPI, TO DZIESIĘCIU MĄDRYCH NIE SPRZEDA", "category": "POWIEDZENIE"},
+                {"text": "CO JEDEN POLEPSZY, TO DRUGI POPIEPRZY", "category": "POWIEDZENIE"},
+                {"text": "CO JEDEN ROK PŁACI, TO DRUGI ROK TRACI", "category": "POWIEDZENIE"},
+                {"text": "CO KOMU PISANE, TO GO NIE MINIE", "category": "POWIEDZENIE"},
+                {"text": "CO KRAJ, TO OBYCZAJ", "category": "POWIEDZENIE"},
+                {"text": "CO LATO ODKŁADA, TO ZIMA PRZEJADA", "category": "POWIEDZENIE"},
+                {"text": "CO MA PIERNIK DO WIATRAKA", "category": "POWIEDZENIE"},
+                {"text": "CO MA WISIEĆ, NIE UTONIE", "category": "POWIEDZENIE"},
+                {"text": "CO MARZEC WYPIECZE, TO KWIECIEŃ WYSIECZE", "category": "POWIEDZENIE"},
+                {"text": "CO NAGLE, TO PO DIABLE", "category": "POWIEDZENIE"},
+                {"text": "CO NIE SIŁĄ, TO ROZUMEM", "category": "POWIEDZENIE"},
+                {"text": "CO NIE ZASZKODZI, TO WZMOCNI", "category": "POWIEDZENIE"},
+                {"text": "CO POWIESZ KOMU W SEKRECIE, TO WIEDZĄ W CAŁYM POWIECIE", "category": "POWIEDZENIE"},
+                {"text": "CO SIĘ CZYNIĆ NIE GODZI, TO TEŻ MÓWIĆ SZKODZI", "category": "POWIEDZENIE"},
+                {"text": "CO SIĘ NIE NAJESZ, TO SIĘ I NIE NALIŻESZ", "category": "POWIEDZENIE"},
+                {"text": "CO SIĘ ODWLECZE, TO NIE UCIECZE", "category": "POWIEDZENIE"},
+                {"text": "CO SIĘ PRĘDKO WZNIECI, NIEDŁUGO SIĘ ŚWIECI", "category": "POWIEDZENIE"},
+                {"text": "CO SIĘ STAŁO, TO SIĘ NIE ODSTANIE", "category": "POWIEDZENIE"},
+                {"text": "CO STRONA, TO ŻONA", "category": "POWIEDZENIE"},
+                {"text": "CO W CZYIM SERCU NA DNIE, TO WÓDKA WYWIEDZIE SNADNIE", "category": "POWIEDZENIE"},
+                {"text": "CO W KOBIECYM SERCU NA DNIE, NAWET DIABEŁ NIE ODGADNIE", "category": "POWIEDZENIE"},
+                {"text": "CO W SERCU, TO NA WIDELCU", "category": "POWIEDZENIE"},
+                {"text": "CO WIEŚ, TO INNA PIEŚŃ", "category": "POWIEDZENIE"},
+                {"text": "CO WOLNO WOJEWODZIE, TO NIE TOBIE, SMRODZIE", "category": "POWIEDZENIE"},
+                {"text": "CO Z OCZU, TO Z SERCA", "category": "POWIEDZENIE"},
+                {"text": "CO ZA DUŻO, TO NIEZDROWO", "category": "POWIEDZENIE"},
+                {"text": "CUD NAD CUDAMI - NIEGADATLIWA MIĘDZY NIEWIASTAMI", "category": "POWIEDZENIE"},
+                {"text": "CUDZE CHWALICIE, SWEGO NIE ZNACIE (SAMI NIE WIECIE CO POSIADACIE)", "category": "POWIEDZENIE"},
+                {"text": "CYGAN IDZIE RAZ PRZEZ WIEŚ", "category": "POWIEDZENIE"},
+                {"text": "CZAS LECZY RANY", "category": "POWIEDZENIE"},
+                {"text": "CZAS TO PIENIĄDZ", "category": "POWIEDZENIE"},
+                {"text": "CZEGO OCZY NIE WIDZĄ, TEGO SERCU NIE ŻAL", "category": "POWIEDZENIE"},
+                {"text": "CZEGO SIĘ JAŚ NIE NAUCZYŁ, JAN UMIAŁ NIE BĘDZIE", "category": "POWIEDZENIE"},
+                {"text": "CZERWIEC MOKRY PO ZIMNYM MAJU, CHŁOPOM W JESIENI BĘDZIE JAK W RAJU", "category": "POWIEDZENIE"},
+                {"text": "CZERWIEC PO DESZCZOWYM MAJU CZĘSTO DŻDŻYSTY W NASZYM KRAJU", "category": "POWIEDZENIE"},
+                {"text": "CZERWIEC STAŁY, GRUDZIEŃ DOSKONAŁY", "category": "POWIEDZENIE"},
+                {"text": "CZERWIEC TEMU SIĘ ZIELENI, KTO DO PRACY SIĘ NIE LENI", "category": "POWIEDZENIE"},
+                {"text": "CZESKI BŁĄD", "category": "POWIEDZENIE"},
+                {"text": "CZŁOWIEK CAŁE ŻYCIE SIĘ UCZY I GŁUPIM UMIERA", "category": "POWIEDZENIE"},
+                {"text": "CZŁOWIEK STRZELA, PAN BÓG KULE NOSI", "category": "POWIEDZENIE"},
+                {"text": "CZY SIĘ STOI, CZY SIĘ LEŻY, DWA TYSIĄCE SIĘ NALEŻY", "category": "POWIEDZENIE"},
+                {"text": "CZYM CHATA BOGATA, TYM RADA", "category": "POWIEDZENIE"},
+                {"text": "CZYM SKORUPKA ZA MŁODU NASIĄKNIE, TYM NA STAROŚĆ TRĄCI", "category": "POWIEDZENIE"},
+                {"text": "CZYNY PRZEMAWIAJĄ GŁOŚNIEJ NIŻ SŁOWA", "category": "POWIEDZENIE"},
+                {"text": "ĆWICZENIE CZYNI MISTRZA", "category": "POWIEDZENIE"},
+                {"text": "ĆWICZENIE ROZUM SPRAWUJE, PRZECHADZKA SIŁY SZANUJE", "category": "POWIEDZENIE"},
+                {"text": "DAJ KURZE GRZĘDĘ, A ONA: WYŻEJ SIĘDĘ", "category": "POWIEDZENIE"},
+                {"text": "DAJ MU PALEC, A ON CAŁĄ RĘKĘ CHWYTA", "category": "POWIEDZENIE"},
+                {"text": "DAROWANEMU KONIOWI W ZĘBY SIĘ NIE ZAGLĄDA", "category": "POWIEDZENIE"},
+                {"text": "DESZCZE MICHAŁOWE PRAWIĄ W ZIMIE POWIETRZE ZDROWE", "category": "POWIEDZENIE"},
+                {"text": "DLA CHCĄCEGO NIC TRUDNEGO", "category": "POWIEDZENIE"},
+                {"text": "DIABEŁ NIE ŚPI", "category": "POWIEDZENIE"},
+                {"text": "DIABEŁ ORNAT ZAŁOŻYŁ I OGONEM NA MSZĘ DZWONI", "category": "POWIEDZENIE"},
+                {"text": "DIABEŁ TKWI W SZCZEGÓŁACH", "category": "POWIEDZENIE"},
+                {"text": "DO TRZECH RAZY SZTUKA", "category": "POWIEDZENIE"},
+                {"text": "DO WESELA SIĘ ZAGOI", "category": "POWIEDZENIE"},
+                {"text": "DOBRA KROWA DZIECI CHŁOPU CHOWA", "category": "POWIEDZENIE"},
+                {"text": "DOBRE PRZY LEPSZYM - TANIEJE", "category": "POWIEDZENIE"},
+                {"text": "DOBREGO I KARCZMA NIE ZEPSUJE, A ZŁEGO I KOŚCIÓŁ NIE NAPRAWI", "category": "POWIEDZENIE"},
+                {"text": "DOBRY CHLEB ZE SOLĄ, BYLE Z DOBRĄ WOLĄ", "category": "POWIEDZENIE"},
+                {"text": "DOBRY SEN STOI ZA DOBRY OBIAD", "category": "POWIEDZENIE"},
+                {"text": "DOBRY ZWYCZAJ - NIE POŻYCZAJ", "category": "POWIEDZENIE"},
+                {"text": "DOBRY ŻART TYNFA WART", "category": "POWIEDZENIE"},
+                {"text": "DOBRYMI CHĘCIAMI JEST PIEKŁO WYBRUKOWANE", "category": "POWIEDZENIE"},
+                {"text": "DOBRE OBYCZAJE DOBRE ZDROWIE CZYNIĄ", "category": "POWIEDZENIE"},
+                {"text": "DOBRZE TEN GOŚCI TRAKTUJE, CO WESOŁOŚĆ POKAZUJE", "category": "POWIEDZENIE"},
+                {"text": "DOPÓTY DZBAN WODĘ NOSI, DOPÓKI MU SIĘ UCHO NIE URWIE", "category": "POWIEDZENIE"},
+                {"text": "DWA RAZY DAJE, KTO SZYBKO DAJE", "category": "POWIEDZENIE"},
+                {"text": "DZIAD SWOJE, BABA SWOJE", "category": "POWIEDZENIE"},
+                {"text": "DZIECI I RYBY GŁOSU NIE MAJĄ", "category": "POWIEDZENIE"},
+                {"text": "DZIESIĄTA NA ZEGARZE IDĄ SPAĆ GOSPODARZE", "category": "POWIEDZENIE"},
+                {"text": "ELEKTRYKA PRĄD NIE TYKA", "category": "POWIEDZENIE"},
+                {"text": "ELIASZ PRZYNOSI DESZCZE, TO SIĘ PASZA ZGNOI JESZCZE", "category": "POWIEDZENIE"},
+                {"text": "EUGENI POGODĘ W STYCZNIU ODMIENI", "category": "POWIEDZENIE"},
+                {"text": "FAŁSZ PRAWDY NIE LUBI", "category": "POWIEDZENIE"},
+                {"text": "FORTUNA KOŁEM SIĘ TOCZY", "category": "POWIEDZENIE"},
+                {"text": "FORTUNA NA PSTRYM KONIU JEŹDZI", "category": "POWIEDZENIE"},
+                {"text": "GADAŁ DZIAD DO OBRAZU, A OBRAZ NI RAZU", "category": "POWIEDZENIE"},
+                {"text": "GDY BEZ WIATRÓW LUTY CHODZI, W KWIETNIU WICHER NIE ZAWODZI", "category": "POWIEDZENIE"},
+                {"text": "GDY CHOINKA TONIE W WODZIE, JAJKO TOCZY SIĘ PO LODZIE", "category": "POWIEDZENIE"},
+                {"text": "GDY CIEPŁO NA DOMINIKA, OSTRA ZIMA NAS DOTYKA", "category": "POWIEDZENIE"},
+                {"text": "GDY CZERWIEC CHŁODEM I WODĄ SZAFUJE, ZWYKLE CAŁY ROK NAM POPSUJE", "category": "POWIEDZENIE"},
+                {"text": "GDY KOTA NIE MA, MYSZY HARCUJĄ", "category": "POWIEDZENIE"},
+                {"text": "GDY MEDARD Z DESZCZEM PRZYBYWA, TAK SAMO BĘDZIE I W ŻNIWA", "category": "POWIEDZENIE"},
+                {"text": "GDY NA ŚWIĘTY WALEK DESZCZE, MROZY WRÓCĄ JESZCZE", "category": "POWIEDZENIE"},
+                {"text": "GDY NA WOJCIECHA RANO PLUCHA, DO POŁOWY LATA BĘDZIE ZIEMIA SUCHA", "category": "POWIEDZENIE"},
+                {"text": "GDY PRZED WOJCIECHEM GRZMI, DŁUGO JESZCZE ZIMA ŚPI", "category": "POWIEDZENIE"},
+                {"text": "GDY SIĘ CZŁOWIEK SPIESZY, TO SIĘ DIABEŁ CIESZY", "category": "POWIEDZENIE"},
+                {"text": "GDY SŁOŃCE PRZYŚWIECA NA JANA DOBREGO, MOŻNA OCZEKIWAĆ LATA POGODNEGO", "category": "POWIEDZENIE"},
+                {"text": "GDY STYCZEŃ Z MGŁĄ CHODZI, MOKRĄ I WCZESNĄ WIOSNĘ ZRODZI", "category": "POWIEDZENIE"},
+                {"text": "GDY SIERPIEŃ Z PÓŁNOCY DMUCHA, NASTĘPUJE ZWYKLE POSUCHA", "category": "POWIEDZENIE"},
+                {"text": "GDY W GROMNICZNĄ Z DACHÓW CIECZE, ZIMA JESZCZE SIĘ PRZEWLECZE", "category": "POWIEDZENIE"},
+                {"text": "GDY W MARCU GRZMOT NA LODY SPADA, W LECIE GRAD ZAPOWIADA", "category": "POWIEDZENIE"},
+                {"text": "GDY W SIERPNIU DNI JASNE, BĘDĄ STODOŁY CIASNE", "category": "POWIEDZENIE"},
+                {"text": "GDY W STYCZNIU PSZCZOŁY SIĘ RUSZAJĄ, TO MOKRĄ WIOSNĘ ZAPOWIADAJĄ", "category": "POWIEDZENIE"},
+                {"text": "GDY W TRZECH KRÓLI MROZEK TRZYMA, BĘDZIE JESZCZE DŁUGA ZIMA", "category": "POWIEDZENIE"},
+                {"text": "GDY WRZESIEŃ BEZ DESZCZÓW BĘDZIE, W ZIMIE WIATRÓW PEŁNO WSZĘDZIE", "category": "POWIEDZENIE"},
+                {"text": "GDY Z POCZĄTKU SIERPNIA SKWAR TRZYMA, ZWYKLE BYWA DŁUGA I ŚNIEŻNA ZIMA", "category": "POWIEDZENIE"},
+                {"text": "GDY ZUZANNA Z POGODĄ CHADZA, PIĘKNĄ JESIEŃ PRZYPROWADZA", "category": "POWIEDZENIE"},
+                {"text": "GDYBY BABCIA MIAŁA WĄSY, TOBY BYŁA DZIADKIEM", "category": "POWIEDZENIE"},
+                {"text": "GDYBY KÓZKA NIE SKAKAŁA, TOBY NÓŻKI NIE ZŁAMAŁA", "category": "POWIEDZENIE"},
+                {"text": "GDZIE DIABEŁ NIE MOŻE, TAM BABĘ POŚLE", "category": "POWIEDZENIE"},
+                {"text": "GDZIE DRWA RĄBIĄ, TAM WIÓRY LECĄ", "category": "POWIEDZENIE"},
+                {"text": "GDZIE DWÓCH SIĘ BIJE, TAM TRZECI KORZYSTA", "category": "POWIEDZENIE"},
+                {"text": "GDZIE KUCHAREK SZEŚĆ, TAM NIE MA CO JEŚĆ", "category": "POWIEDZENIE"},
+                {"text": "GDZIE ZGODA TAM I SIŁA", "category": "POWIEDZENIE"},
+                {"text": "GŁODNEMU CHLEB NA MYŚLI", "category": "POWIEDZENIE"},
+                {"text": "GŁOWĄ MURU NIE PRZEBIJESZ", "category": "POWIEDZENIE"},
+                {"text": "GOŁY JAK ŚWIĘTY TURECKI", "category": "POWIEDZENIE"},
+                {"text": "GOŚCIOM NALEŻY SIĘ PIERWSZE MIEJSCE", "category": "POWIEDZENIE"},
+                {"text": "GOŚĆ NIE W PORĘ GORSZY TATARZYNA", "category": "POWIEDZENIE"},
+                {"text": "GOŚĆ W DOM, BÓG W DOM", "category": "POWIEDZENIE"},
+                {"text": "GROMNICZNA POGODNA, BĘDZIE JESIEŃ DORODNA", "category": "POWIEDZENIE"},
+                {"text": "GROSZ DO GROSZA, A BĘDZIE KOKOSZA", "category": "POWIEDZENIE"},
+                {"text": "GRZMOT W KWIETNIU - DOBRA NOWINA, JUŻ SZRON ROŚLIN NIE POŚCINA", "category": "POWIEDZENIE"},
+                {"text": "GRZMOT W MAJU NIE SZKODZI, SAD DOBRZE OBRODZI", "category": "POWIEDZENIE"},
+                {"text": "HABIT NIE CZYNI MNICHA", "category": "POWIEDZENIE"},
+                {"text": "HISTORIA LUBI SIĘ POWTARZAĆ", "category": "POWIEDZENIE"},
+                {"text": "HONOR DROŻSZY NAD PIENIĄDZE", "category": "POWIEDZENIE"},
+                {"text": "HONOR JAK PAPIER, GDY RAZ SIĘ SPLAMI, JUŻ GO NIE WYCZYŚCI", "category": "POWIEDZENIE"},
+                {"text": "I W PARYŻU NIE ZROBIĄ Z OWSA RYŻU", "category": "POWIEDZENIE"},
+                {"text": "IDZIE LUTY, PODKUJ BUTY", "category": "POWIEDZENIE"},
+                {"text": "ILE KTO MA CIERPLIWOŚCI, TYLE MĄDROŚCI", "category": "POWIEDZENIE"},
+                {"text": "ILE WINA W GŁOWIE, TYLE PRAWDY W SŁOWIE", "category": "POWIEDZENIE"},
+                {"text": "IM DALEJ W LAS, TYM WIĘCEJ DRZEW", "category": "POWIEDZENIE"},
+                {"text": "INDYK MYŚLAŁ O NIEDZIELI, A W SOBOTĘ ŁEB MU ŚCIĘLI", "category": "POWIEDZENIE"},
+                {"text": "JAK AMEN W PACIERZU", "category": "POWIEDZENIE"},
+                {"text": "JA O SZYDLE, TY O MYDLE", "category": "POWIEDZENIE"},
+                {"text": "JAK CIĘ WIDZĄ, TAK CIĘ PISZĄ", "category": "POWIEDZENIE"},
+                {"text": "JAK JEST W WIGILIĘ OBJAWIENIA, TAK SIĘ TEŻ PRZYSZŁY STYCZEŃ ODMIENIA", "category": "POWIEDZENIE"},
+                {"text": "JAK KUBA BOGU, TAK BÓG KUBIE", "category": "POWIEDZENIE"},
+                {"text": "JAK NA ŚWIĘTEGO JÓZEFA CHMURKI, TO SADŹ GDZIE GÓRKI, A JAK POGODA, TO SADŹ GDZIE WODA", "category": "POWIEDZENIE"},
+                {"text": "JAK NIE KIJEM, TO PAŁKĄ", "category": "POWIEDZENIE"},
+                {"text": "JAK PIES Z KOTEM", "category": "POWIEDZENIE"},
+                {"text": "JAK PO LUTYM MARZEC, TO PO MAJU CZERWIEC", "category": "POWIEDZENIE"},
+                {"text": "JAK SIĘ CHCE PSA UDERZYĆ, KIJ SIĘ ZNAJDZIE", "category": "POWIEDZENIE"},
+                {"text": "JAK SIĘ CZŁOWIEK SPIESZY, TO SIĘ DIABEŁ CIESZY", "category": "POWIEDZENIE"},
+                {"text": "JAK SOBIE POŚCIELESZ, TAK SIĘ WYŚPISZ", "category": "POWIEDZENIE"},
+                {"text": "JAK TRWOGA, TO DO BOGA", "category": "POWIEDZENIE"},
+                {"text": "JAK TY KOMU, TAK ON TOBIE", "category": "POWIEDZENIE"},
+                {"text": "JAKA MAĆ TAKA NAĆ", "category": "POWIEDZENIE"},
+                {"text": "JAKA MARCHEW, TAKA NATKA - TAKA CÓRKA, JAKA MATKA; JAKIE DRZEWO, TAKI KLIN - JAKI OJCIEC, TAKI SYN", "category": "POWIEDZENIE"},
+                {"text": "JAKA MATKA TAKA CÓRKA", "category": "POWIEDZENIE"},
+                {"text": "JAKA PRACA TAKA PŁACA", "category": "POWIEDZENIE"},
+                {"text": "JAKA WODA, TAKI MŁYN, JAKI OJCIEC, TAKI SYN", "category": "POWIEDZENIE"},
+                {"text": "JAKI JAKUB OD POŁUDNIA, TAKA ZIMA OD GRUDNIA", "category": "POWIEDZENIE"},
+                {"text": "JAKI OJCIEC, TAKI SYN", "category": "POWIEDZENIE"},
+                {"text": "JAKI PAN, TAKI KRAM", "category": "POWIEDZENIE"},
+                {"text": "JAKI PIERWSZY WRZESIEŃ, TAKA BĘDZIE JESIEŃ", "category": "POWIEDZENIE"},
+                {"text": "JAKIE ZWIASTOWANIE, TAKIE ZMARTWYCHWSTANIE", "category": "POWIEDZENIE"},
+                {"text": "JAKIM CZŁOWIEK SIĘ ZDAJE, TAKIM CHYŁKIEM ZOSTAJE", "category": "POWIEDZENIE"},
+                {"text": "JEDNA JASKÓŁKA WIOSNY NIE CZYNI", "category": "POWIEDZENIE"},
+                {"text": "JEDZIESZ Z GÓRY, CZY POD GÓRĘ - I TAK PATRZYSZ W KOŃSKĄ DZIURĘ", "category": "POWIEDZENIE"},
+                {"text": "JESZCZE SIĘ TAKI NIE URODZIŁ, CO BY WSZYSTKIM DOGODZIŁ", "category": "POWIEDZENIE"},
+                {"text": "JEŚLI PSZCZOŁA W STYCZNIU Z ULA WYLATUJE, RZADKO POMYŚLNY ROK NAM OBIECUJE", "category": "POWIEDZENIE"},
+                {"text": "JEŚLI W KWIETNIU PSZCZOŁY NIE LATAJĄ, TO JESZCZE DŁUGIE CHŁODY SIĘ ZAPOWIADAJĄ", "category": "POWIEDZENIE"},
+                {"text": "JEŚLI W MAJU ŚNIEG SIĘ ZDARZY, TO LATO DOBRZE WYPARZY", "category": "POWIEDZENIE"},
+                {"text": "JEŚLI WRZESIEŃ BĘDZIE CIEPŁY I SUCHY, PEWNO PAŹDZIERNIK NIE OSZCZĘDZI NAM PLUCHY", "category": "POWIEDZENIE"},
+                {"text": "JEŚLI WRZESIEŃ Z POGODĄ ZACZYNA, ZWYKLE PRZEZ MIESIĄC POGODĘ NAM TRZYMA", "category": "POWIEDZENIE"},
+                {"text": "JUTRO W GRUDNIU PO POŁUDNIU", "category": "POWIEDZENIE"},
+                {"text": "KAŻDA PLISZKA SWÓJ OGONEK CHWALI", "category": "POWIEDZENIE"},
+                {"text": "KAŻDA SROCZKA SWÓJ OGONEK CHWALI", "category": "POWIEDZENIE"},
+                {"text": "KAŻDEGO CIĄGNIE DO ZŁEGO", "category": "POWIEDZENIE"},
+                {"text": "KAŻDEJ CHOROBIE W CZAS ZABIEGAJ", "category": "POWIEDZENIE"},
+                {"text": "KAŻDY GARNEK ZNAJDZIE SWOJĄ PRZYKRYWKĘ", "category": "POWIEDZENIE"},
+                {"text": "KAŻDY JEST KOWALEM SWEGO LOSU", "category": "POWIEDZENIE"},
+                {"text": "KAŻDY KIJ MA DWA KOŃCE", "category": "POWIEDZENIE"},
+                {"text": "KAŻDY KRAJ MA SWÓJ RAJ", "category": "POWIEDZENIE"},
+                {"text": "KIEDY CZŁOWIEK ŁĄKĘ KOSI, LADA BABA DESZCZ UPROSI", "category": "POWIEDZENIE"},
+                {"text": "KIEDY MOKRY MAJ, BĘDZIE ŻYTKO JAKO GAJ", "category": "POWIEDZENIE"},
+                {"text": "KIEDY PANNA SIĘ RODZI, JUŻ JASKÓŁKA ODCHODZI", "category": "POWIEDZENIE"},
+                {"text": "KIEDY STYCZEŃ NAJOSTRZEJSZY, TEDY ROCZEK NAJPŁODNIEJSZY", "category": "POWIEDZENIE"},
+                {"text": "KIEDY STYCZEŃ ROZCHLAPANY, TO I LIPIEC ZAPŁAKANY", "category": "POWIEDZENIE"},
+                {"text": "KIEDY W KWIETNIU SŁONKO GRZEJE, ROLNIK NIE ZUBOŻEJE", "category": "POWIEDZENIE"},
+                {"text": "KIEDY W STYCZNIU LATO, W LECIE ZIMNO ZA TO", "category": "POWIEDZENIE"},
+                {"text": "KIEDY W STYCZNIU ROŚNIE TRAWA, LICHA W LECIE JEST POTRAWA", "category": "POWIEDZENIE"},
+                {"text": "KIEDY WLAZŁEŚ MIĘDZY WRONY, MUSISZ KRAKAĆ JAK I ONE", "category": "POWIEDZENIE"},
+                {"text": "KŁAMSTWEM DALEKO SIĘ NIE ZAJDZIE", "category": "POWIEDZENIE"},
+                {"text": "KŁAMSTWO MA KRÓTKIE NOGI", "category": "POWIEDZENIE"},
+                {"text": "KŁAMSTWO PRZEMINIE, PRAWDA NIE ZGINIE", "category": "POWIEDZENIE"},
+                {"text": "KOCHAJ BLIŹNIEGO SWEGO JAK SIEBIE SAMEGO", "category": "POWIEDZENIE"},
+                {"text": "KOMBINOWAĆ JAK KOŃ POD GÓRĘ", "category": "POWIEDZENIE"},
+                {"text": "KOMU W DROGĘ, TEMU CZAS", "category": "POWIEDZENIE"},
+                {"text": "KRADZIONE NIE TUCZY", "category": "POWIEDZENIE"},
+                {"text": "KREW NIE WODA", "category": "POWIEDZENIE"},
+                {"text": "KROPLA DO KROPLI I BĘDZIE MORZE", "category": "POWIEDZENIE"},
+                {"text": "KROPLA DRĄŻY SKAŁĘ", "category": "POWIEDZENIE"},
+                {"text": "KROWA, KTÓRA DUŻO RYCZY, MAŁO MLEKA DAJE", "category": "POWIEDZENIE"},
+                {"text": "KRÓLA POPIELA MYSZY ZJADŁY", "category": "POWIEDZENIE"},
+                {"text": "KRUK KRUKOWI OKA NIE WYKOLE", "category": "POWIEDZENIE"},
+                {"text": "KTO DAJE I ODBIERA, TEN SIĘ W PIEKLE PONIEWIERA", "category": "POWIEDZENIE"},
+                {"text": "KTO DROGĘ SKRACA, DO DOMU NIE WRACA", "category": "POWIEDZENIE"},
+                {"text": "KTO KOGO ŁAJE, NIECH SAM PRZYKŁAD DAJE", "category": "POWIEDZENIE"},
+                {"text": "KTO LATEM PRACUJE, ZIMĄ GŁODU NIE CZUJE", "category": "POWIEDZENIE"},
+                {"text": "KTO MA OCZY Z KORKA, TEN DOKŁADA Z WORKA", "category": "POWIEDZENIE"},
+                {"text": "KTO MA SADŁO, TEMU SNADNO", "category": "POWIEDZENIE"},
+                {"text": "KTO MA SUMIENIE W DUSZY, TEN CUDZEGO NIE RUSZY", "category": "POWIEDZENIE"},
+                {"text": "KTO MA ULE, TEN MA MIÓD, KTO MA DZIECI, TEN MA SMRÓD", "category": "POWIEDZENIE"},
+                {"text": "KTO MIECZEM WOJUJE, (TEN) OD MIECZA GINIE", "category": "POWIEDZENIE"},
+                {"text": "KTO NI MO MIEDZI, TYN NA DUPIE SIEDZI", "category": "POWIEDZENIE"},
+                {"text": "KTO NIE MA SZCZĘŚCIA W KARTACH, MA SZCZĘŚCIE W MIŁOŚCI", "category": "POWIEDZENIE"},
+                {"text": "KTO NIE MA W GŁOWIE, TEN MA W NOGACH", "category": "POWIEDZENIE"},
+                {"text": "KTO NIE SŁUCHA BRATA, SŁUCHAĆ BĘDZIE BATA", "category": "POWIEDZENIE"},
+                {"text": "KTO NOSI, TEN NIE PROSI", "category": "POWIEDZENIE"},
+                {"text": "KTO PIERWSZY, TEN LEPSZY", "category": "POWIEDZENIE"},
+                {"text": "KTO PIJE I PALI, TEN NIE MA ROBALI", "category": "POWIEDZENIE"},
+                {"text": "KTO POD KIM DOŁKI KOPIE, SAM W NIE WPADA", "category": "POWIEDZENIE"},
+                {"text": "KTO PODJE I POTABACZY TEMU ZARAZ INACZYJ", "category": "POWIEDZENIE"},
+                {"text": "KTO POJE I ZAKURZY TEMU W BRZUCHU NIE BURZY", "category": "POWIEDZENIE"},
+                {"text": "KTO PÓŹNO PRZYCHODZI, SAM SOBIE SZKODZI", "category": "POWIEDZENIE"},
+                {"text": "KTO PYTA, NIE BŁĄDZI", "category": "POWIEDZENIE"},
+                {"text": "KTO PYTA, PRAWDY SZUKA", "category": "POWIEDZENIE"},
+                {"text": "KTO RANO WSTAJE, TEMU PAN BÓG DAJE", "category": "POWIEDZENIE"},
+                {"text": "KTO SIEJE WIATR, TEN ZBIERA BURZĘ", "category": "POWIEDZENIE"},
+                {"text": "KTO SIĘ BABĄ ZASTAWIA, NA ŚMIECH SIĘ WYSTAWIA", "category": "POWIEDZENIE"},
+                {"text": "KTO SIĘ CZUBI, TEN SIĘ LUBI", "category": "POWIEDZENIE"},
+                {"text": "KTO SIĘ RAZ SPARZY, NA ZIMNE DMUCHA", "category": "POWIEDZENIE"},
+                {"text": "KTO SIĘ WRÓBLEM URODZIŁ, KANARKIEM NIE UMRZE", "category": "POWIEDZENIE"},
+                {"text": "KTO SZUKA, TEN ZNAJDZIE", "category": "POWIEDZENIE"},
+                {"text": "KTO UCIEKA, WINNYM SIĘ STAJE", "category": "POWIEDZENIE"},
+                {"text": "KTO W LECIE NIE ORZE, NIE SIEJE, TEN W ZIMIE Z FRASUNKU NISZCZEJE", "category": "POWIEDZENIE"},
+                {"text": "KTO W LECIE NIE ZBIERA, ZIMĄ GŁODEM PRZYMIERA", "category": "POWIEDZENIE"},
+                {"text": "KTO Z KIM PRZESTAJE, TAKIM SIĘ STAJE", "category": "POWIEDZENIE"},
+                {"text": "KTO BY CHCIAŁ WE ZDROWIU JAKO MŁODY DO ŚMIERCI ŻYĆ, POTRZEBA MU ZA WCZASU UMIEĆ STARYM BYĆ", "category": "POWIEDZENIE"},
+                {"text": "KTO SIĘ MYJE, A BEZ MYDŁA, TEN PODOBNY DO STRASZYDŁA", "category": "POWIEDZENIE"},
+                {"text": "KTO SIĘ MYJE, TEN DŁUGO ŻYJE", "category": "POWIEDZENIE"},
+                {"text": "KTO SIĘ NIE MODLI I NIE MYJE TEN JAKO ŚWINIA ŻYJE", "category": "POWIEDZENIE"},
+                {"text": "KTO ŚPIEWA, TEN TROSKI ROZWIEWA", "category": "POWIEDZENIE"},
+                {"text": "KTO W LIPCU PATRZY CHŁODU, NACIERPI SIĘ W ZIMIE GŁODU", "category": "POWIEDZENIE"},
+                {"text": "KTO ZDROWIA NIE SZANUJE, TEN NA STAROŚĆ ŻAŁUJE", "category": "POWIEDZENIE"},
+                {"text": "KUJ ŻELAZO, PÓKI GORĄCE", "category": "POWIEDZENIE"},
+                {"text": "KWIECIEŃ-PLECIEŃ, BO PRZEPLATA TROCHĘ ZIMY, TROCHĘ LATA", "category": "POWIEDZENIE"},
+                {"text": "KWIECIEŃ CO DESZCZEM ROSI, WIELE OWOCÓW PRZYNOSI", "category": "POWIEDZENIE"},
+                {"text": "KWIECIEŃ SUCHY NIE DODAJE OTUCHY", "category": "POWIEDZENIE"},
+                {"text": "LEPIEJ DMUCHAĆ NA ZIMNE", "category": "POWIEDZENIE"},
+                {"text": "LEPIEJ PÓŹNO NIŻ WCALE", "category": "POWIEDZENIE"},
+                {"text": "LEPIEJ Z MĄDRYM ZGUBIĆ, NIŻ Z GŁUPIM ZNALEŹĆ", "category": "POWIEDZENIE"},
+                {"text": "LEPIEJ ŻYWCEM KŁAŚĆ SIĘ W GRÓB NIŻ POD PRZYMUSEM ZAWRZEĆ ŚLUB", "category": "POWIEDZENIE"},
+                {"text": "LEPSZA JEDNA PANNA NIŻ CZTERY WDOWY", "category": "POWIEDZENIE"},
+                {"text": "LEPSZE JEST WROGIEM DOBREGO", "category": "POWIEDZENIE"},
+                {"text": "LEPSZY GROSZ NA ZIEMI W POTRZEBIE, NIŹLI STO DUKATÓW W NIEBIE", "category": "POWIEDZENIE"},
+                {"text": "LEPSZY ŁUT SZCZĘŚCIA NIŻ CETNAR ROZUMU", "category": "POWIEDZENIE"},
+                {"text": "LEPSZY RYDZ NIŻ NIC", "category": "POWIEDZENIE"},
+                {"text": "LEPSZY WŁASNY GROSZ, NIŹLI CUDZY TRZOS", "category": "POWIEDZENIE"},
+                {"text": "LEPSZY WRÓBEL W GARŚCI NIŻ GOŁĄB NA DACHU", "category": "POWIEDZENIE"},
+                {"text": "LOS SZCZĘŚCIE RZUCA, ALE NIE KAŻDY ŁAPIE", "category": "POWIEDZENIE"},
+                {"text": "LUTY - ZAŁÓŻ CIEPŁE BUTY", "category": "POWIEDZENIE"},
+                {"text": "ŁADNA BUZIA TO POLOWA POSAGU", "category": "POWIEDZENIE"},
+                {"text": "ŁADNEMU WE WSZYSTKIM ŁADNIE", "category": "POWIEDZENIE"},
+                {"text": "ŁADNY KWIATEK KRÓTKO PRZY DRODZE STOI", "category": "POWIEDZENIE"},
+                {"text": "ŁAGODNOŚĆ UŚMIERZA BÓL", "category": "POWIEDZENIE"},
+                {"text": "ŁAGODNOŚĆ WSZYSTKIEGO DOKAŻE", "category": "POWIEDZENIE"},
+                {"text": "ŁASKA PAŃSKA NA PSTRYM KONIU CHADZA", "category": "POWIEDZENIE"},
+                {"text": "ŁASKA PAŃSKA NA PSTRYM KONIU JEŹDZI", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ BRAĆ NIŻ DAĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ COŚ ZGANIĆ NIŻ ZROBIĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ KOMU RADZIĆ NIŻ DOPOMÓC", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ NAUCZYĆ SIĘ KLĄĆ NIŻ CZYTAĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ OBIECAĆ NIŻ DOTRZYMAĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ POPSUĆ NIŻ NAPRAWIĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ SŁUCHAĆ NIŻ ROZKAZYWAĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ STO PCHEŁ UPILNOWAĆ NIŻ JEDNEJ DZIEWCZYNY", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ WOJNĘ ZACZĄĆ NIŻ JĄ SKOŃCZYĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ Z GÓRY JAK POD GÓRĘ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWIEJ ZRANIĆ NIŻ LECZYĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWO BYĆ HOJNYM Z CUDZEGO", "category": "POWIEDZENIE"},
+                {"text": "ŁATWO CUDZYM SZAFOWAĆ", "category": "POWIEDZENIE"},
+                {"text": "ŁATWO PRZYSZŁO, ŁATWO POSZŁO", "category": "POWIEDZENIE"},
+                {"text": "MAKARY POGODNY, CAŁY STYCZEŃ CHŁODNY", "category": "POWIEDZENIE"},
+                {"text": "MAŁA STRATA - KRÓTKI ŻAL", "category": "POWIEDZENIE"},
+                {"text": "MAŁE DZIECI - MAŁY KŁOPOT, DUŻE DZIECI - DUŻY KŁOPOT", "category": "POWIEDZENIE"},
+                {"text": "MAMLI ŚWINIE PAŚĆ, WOLĘ CAŁĄ TRZODĘ", "category": "POWIEDZENIE"},
+                {"text": "MARZEC CO Z DESZCZEM CHADZA, MOKRY CZERWIEC SPROWADZA", "category": "POWIEDZENIE"},
+                {"text": "MARZEC: CZY SŁONECZNY, CZY PŁACZLIWY, LISTOPADA OBRAZ ŻYWY", "category": "POWIEDZENIE"},
+                {"text": "MĄDREJ GŁOWIE DOŚĆ DWIE SŁOWIE", "category": "POWIEDZENIE"},
+                {"text": "MĄDRY POLAK PO SZKODZIE", "category": "POWIEDZENIE"},
+                {"text": "MIEJ NASIENIE DO TWEJ ROLI, TO CIĘ GŁOWA NIE ZABOLI", "category": "POWIEDZENIE"},
+                {"text": "MIŁE ZŁEGO POCZĄTKI, LECZ KONIEC ŻAŁOSNY", "category": "POWIEDZENIE"},
+                {"text": "MŁODY KOŃ W PIENIĄDZE IDZIE, A STARY Z PIENIĘDZY", "category": "POWIEDZENIE"},
+                {"text": "MŁÓCĄCEMU WOŁOWI NIE ZAWIĄZUJ GĘBY", "category": "POWIEDZENIE"},
+                {"text": "MODLI SIĘ POD FIGURĄ, A DIABŁA MA ZA SKÓRĄ", "category": "POWIEDZENIE"},
+                {"text": "MOJA BABKA JEGO BABCE PODAWAŁA GRUSZKI W CZAPCE", "category": "POWIEDZENIE"},
+                {"text": "MOWA JEST SREBREM, A MILCZENIE ZŁOTEM", "category": "POWIEDZENIE"},
+                {"text": "MÓWIŁ CHŁOP DO OBRAZU, A OBRAZ ANI RAZU", "category": "POWIEDZENIE"},
+                {"text": "MROŹNY GRUDZIEŃ, WIELE ŚNIEGU, ŻYZNY ROCZEK BĘDZIE W BIEGU", "category": "POWIEDZENIE"},
+                {"text": "NA BEZRYBIU I RAK RYBA", "category": "POWIEDZENIE"},
+                {"text": "NA DWOJE BABKA WRÓŻYŁA", "category": "POWIEDZENIE"},
+                {"text": "NA KOGO KRUKI, NA TEGO WRONY", "category": "POWIEDZENIE"},
+                {"text": "NA MARTYNĘ PRZYBYWA DNIA O GODZINĘ", "category": "POWIEDZENIE"},
+                {"text": "NA NOWY ROK PRZYBYWA DNIA O BARANI SKOK", "category": "POWIEDZENIE"},
+                {"text": "NA POCHYŁE DRZEWO KAŻDA KOZA SKACZE", "category": "POWIEDZENIE"},
+                {"text": "NA ŚWIĘTEGO FRANCISZKA PRZYLATUJE PLISZKA, A NA WITA JASKÓŁKA ZAWITA", "category": "POWIEDZENIE"},
+                {"text": "NA ŚWIĘTEGO GRZEGORZA IDZIE ZIMA DO MORZA", "category": "POWIEDZENIE"},
+                {"text": "NA ŚWIĘTEGO HIERONIMA JEST POGODA ALBO JEJ NI MA", "category": "POWIEDZENIE"},
+                {"text": "NA ŚWIĘTEGO LUDWIKA, ZBOŻE Z PÓL UMYKA", "category": "POWIEDZENIE"},
+                {"text": "NA ŚWIĘTY MACIEJ LODY WRÓŻĄ DŁUGIE CHŁODY, A GDY PŁYNĄ JUŻ STRUGĄ, TO I ZIMY NIEDŁUGO", "category": "POWIEDZENIE"},
+                {"text": "NA TRZECH KRÓLI SŁOŃCE ŚWIECI, WIOSNA DO NAS PĘDEM LECI", "category": "POWIEDZENIE"},
+                {"text": "NA ZŁODZIEJU CZAPKA GORE", "category": "POWIEDZENIE"},
+                {"text": "NAJCIEMNIEJ JEST POD LATARNIĄ", "category": "POWIEDZENIE"},
+                {"text": "NAJLEPSZA NA KACA JEST CIĘŻKA PRACA", "category": "POWIEDZENIE"},
+                {"text": "NAJLEPSZE MIENIE - CZYSTE SUMIENIE", "category": "POWIEDZENIE"},
+                {"text": "NATURA CIĄGNIE WILKA DO LASU", "category": "POWIEDZENIE"},
+                {"text": "NAWET MISTRZOWI NIE ZASZKODZI NAUKA", "category": "POWIEDZENIE"},
+                {"text": "NIC TAK NIE ZDOBI JAK CNOTA", "category": "POWIEDZENIE"},
+                {"text": "NIE BĘDZIESZ DBAŁ, NIE BĘDZIESZ MIAŁ", "category": "POWIEDZENIE"},
+                {"text": "NIE BYŁO NAS, BYŁ LAS; NIE BĘDZIE NAS, BĘDZIE LAS", "category": "POWIEDZENIE"},
+                {"text": "NIE CHWAL DNIA PRZED ZACHODEM SŁOŃCA", "category": "POWIEDZENIE"},
+                {"text": "NIE CZAS ŻAŁOWAĆ RÓŻ, GDY PŁONĄ LASY", "category": "POWIEDZENIE"},
+                {"text": "NIE CZYŃ DRUGIEMU, CO TOBIE NIEMIŁE", "category": "POWIEDZENIE"},
+                {"text": "NIE DZIEL SKÓRY NA NIEDŹWIEDZIU", "category": "POWIEDZENIE"},
+                {"text": "NIE KŁADŹ PALCA MIĘDZY DRZWI", "category": "POWIEDZENIE"},
+                {"text": "NIE KUPUJ KOTA W WORKU", "category": "POWIEDZENIE"},
+                {"text": "NIE MA CO PŁAKAĆ NAD ROZLANYM MLEKIEM", "category": "POWIEDZENIE"},
+                {"text": "NIE MA DYMU BEZ OGNIA", "category": "POWIEDZENIE"},
+                {"text": "NIE MA KARESU BEZ INTERESU", "category": "POWIEDZENIE"},
+                {"text": "NIE MA RÓŻY BEZ KOLCÓW", "category": "POWIEDZENIE"},
+                {"text": "NIE MA TEGO ZŁEGO CO BY NA DOBRE NIE WYSZŁO", "category": "POWIEDZENIE"},
+                {"text": "NIE MASZ NA UPÓR LEKARSTWA", "category": "POWIEDZENIE"},
+                {"text": "NIE MIAŁA BABA KŁOPOTU, KUPIŁA SOBIE PROSIAKA", "category": "POWIEDZENIE"},
+                {"text": "NIE MÓW HOP, PÓKI NIE PRZESKOCZYSZ", "category": "POWIEDZENIE"},
+                {"text": "NIE MÓW O NIKIM, NIE BĘDĄ O TOBIE", "category": "POWIEDZENIE"},
+                {"text": "NIE MÓW WOLE CO SIĘ DZIEJE W SZKOLE, NIE MÓW NIKOMU CO DZIEJE SIĘ W DOMU", "category": "POWIEDZENIE"},
+                {"text": "NIE OD RAZU KRAKÓW ZBUDOWANO", "category": "POWIEDZENIE"},
+                {"text": "NIE PAL MOSTÓW ZA SOBĄ", "category": "POWIEDZENIE"},
+                {"text": "NIE PRZESADZA SIĘ STARYCH DRZEW", "category": "POWIEDZENIE"},
+                {"text": "NIE PRZYSZŁA GÓRA DO MAHOMETA, PRZYSZEDŁ MAHOMET DO GÓRY", "category": "POWIEDZENIE"},
+                {"text": "NIE ŚMIEJ SIĘ DZIADKU Z CUDZEGO WYPADKU", "category": "POWIEDZENIE"},
+                {"text": "NIE ŚWIĘCI GARNKI LEPIĄ", "category": "POWIEDZENIE"},
+                {"text": "NIE SZATA ZDOBI CZŁOWIEKA", "category": "POWIEDZENIE"},
+                {"text": "NIE TAKI DIABEŁ STRASZNY, JAK GO MALUJĄ", "category": "POWIEDZENIE"},
+                {"text": "NIE TRZEBA OD RAZU KUPOWAĆ BROWARU, ŻEBY NAPIĆ SIĘ PIWA", "category": "POWIEDZENIE"},
+                {"text": "NIEWAŻNE, CZY KOT JEST BIAŁY CZY CZARNY, WAŻNE, ŻEBY ŁAPAŁ MYSZY", "category": "POWIEDZENIE"},
+                {"text": "NIE WSADZAJ NOSA DO CUDZEGO TRZOSA", "category": "POWIEDZENIE"},
+                {"text": "NIE WSZYSTKIM JEDNAKOWO SŁOŃCE ŚWIECI", "category": "POWIEDZENIE"},
+                {"text": "NIE WSZYSTKO SIĘ GODZI, CO WOLNO", "category": "POWIEDZENIE"},
+                {"text": "NIE WSZYSTKO ZŁOTO, CO SIĘ ŚWIECI", "category": "POWIEDZENIE"},
+                {"text": "NIE ZAWRÓCISZ KIJEM WISŁY", "category": "POWIEDZENIE"},
+                {"text": "NIE ZMIENIA SIĘ KONI W PÓŁ DROGI", "category": "POWIEDZENIE"},
+                {"text": "NIEDALEKO PADA JABŁKO OD JABŁONI", "category": "POWIEDZENIE"},
+                {"text": "NIGDY NIE ODKŁADAJ NA JUTRO TEGO, CO MOŻESZ ZROBIĆ DZISIAJ", "category": "POWIEDZENIE"},
+                {"text": "NIKT NIE JEST PROROKIEM WE WŁASNYM KRAJU", "category": "POWIEDZENIE"},
+                {"text": "NOSIŁ WILK RAZY KILKA, PONIEŚLI I WILKA", "category": "POWIEDZENIE"},
+                {"text": "NOWA MIOTŁA DOBRZE ZAMIATA", "category": "POWIEDZENIE"},
+                {"text": "NOWY ROK JAKI, CAŁY ROK TAKI", "category": "POWIEDZENIE"},
+                {"text": "NOWY ROK POGODNY, ZBIÓR BĘDZIE DORODNY", "category": "POWIEDZENIE"},
+                {"text": "OWIJAĆ W BAWEŁNĘ", "category": "POWIEDZENIE"},
+                {"text": "O WILKU MOWA, A WILK TUŻ", "category": "POWIEDZENIE"},
+                {"text": "OBIECANKI CACANKI, A GŁUPIEMU RADOŚĆ", "category": "POWIEDZENIE"},
+                {"text": "OBIETNICA NIEPEWNICA, A GŁUPIEMU RADOŚĆ", "category": "POWIEDZENIE"},
+                {"text": "OD LIP CIĄGNIE WONNY LIPIEC, NIE DAJ SŁONKU KŁOSA PRZYPIEC", "category": "POWIEDZENIE"},
+                {"text": "OD PRZYBYTKU GŁOWA NIE BOLI", "category": "POWIEDZENIE"},
+                {"text": "OD ŚWIĘTEJ ANKI CHŁODNE WIECZORY I RANKI", "category": "POWIEDZENIE"},
+                {"text": "ODDAĆ, CO CZYJE, KAŻDEMU: BOGU, OJCZYŹNIE, BLIŹNIEMU", "category": "POWIEDZENIE"},
+                {"text": "ODWAGA MĘSKA W CZYNACH, A NIE W SŁOWACH SIĘ OKAZUJE", "category": "POWIEDZENIE"},
+                {"text": "ODWAŻNYM SZCZĘŚCIE SPRZYJA", "category": "POWIEDZENIE"},
+                {"text": "OKAZJA CZYNI ZŁODZIEJA", "category": "POWIEDZENIE"},
+                {"text": "OSTATNICH GRYZĄ PSY", "category": "POWIEDZENIE"},
+                {"text": "PALUSZEK I GŁÓWKA TO SZKOLNA WYMÓWKA", "category": "POWIEDZENIE"},
+                {"text": "PAPIER JEST CIERPLIWY", "category": "POWIEDZENIE"},
+                {"text": "PAN BÓG NIERYCHLIWY, ALE SPRAWIEDLIWY", "category": "POWIEDZENIE"},
+                {"text": "PAŃSKIE OKO KONIA TUCZY", "category": "POWIEDZENIE"},
+                {"text": "PASUJE JAK WÓŁ DO KARETY", "category": "POWIEDZENIE"},
+                {"text": "PATRZY JAK WÓŁ NA MALOWANE WROTA", "category": "POWIEDZENIE"},
+                {"text": "PIECZONE GOŁĄBKI NIE LECĄ SAME DO GĄBKI", "category": "POWIEDZENIE"},
+                {"text": "PIENIĄDZE SZCZĘŚCIA NIE DAJĄ", "category": "POWIEDZENIE"},
+                {"text": "PIES PSU OGONA NIE ODGRYZIE", "category": "POWIEDZENIE"},
+                {"text": "PIĘKNA MISKA JEŚĆ NIE DAJE", "category": "POWIEDZENIE"},
+                {"text": "PO MARCU GRZMIĄCYM, MAJ ŚNIEGIEM ĆMIĄCY", "category": "POWIEDZENIE"},
+                {"text": "PO ŚWIĘTEJ AGACIE WIDZIMY MUCHY W CHACIE", "category": "POWIEDZENIE"},
+                {"text": "PO ŚWIĘTYM TADEUSZU TRZEBA CHODZIĆ W KAPELUSZU", "category": "POWIEDZENIE"},
+                {"text": "POD LATARNIĄ NAJCIEMNIEJ", "category": "POWIEDZENIE"},
+                {"text": "PODRÓŻE KSZTAŁCĄ", "category": "POWIEDZENIE"},
+                {"text": "POKORNE CIELE DWIE MATKI SSIE", "category": "POWIEDZENIE"},
+                {"text": "PORYWAĆ SIĘ Z MOTYKĄ NA SŁOŃCE", "category": "POWIEDZENIE"},
+                {"text": "POWIEDZIAŁEŚ A, POWIEDZ B", "category": "POWIEDZENIE"},
+                {"text": "POWSZECHNYM NATURY ZWYCZAJEM PO NIESTATECZNYM MARCU ŚWIAT CIESZY SIĘ MAJEM", "category": "POWIEDZENIE"},
+                {"text": "PÓKI ŻYTA, PÓTY BYTA", "category": "POWIEDZENIE"},
+                {"text": "PRAWDA JAK OLIWA ZAWSZE NA WIERZCH WYPŁYWA", "category": "POWIEDZENIE"},
+                {"text": "PRAWDZIWA CNOTA KRYTYK SIĘ NIE BOI", "category": "POWIEDZENIE"},
+                {"text": "PRAWDZIWYCH PRZYJACIÓŁ POZNAJE SIĘ W BIEDZIE", "category": "POWIEDZENIE"},
+                {"text": "PRAWO JEST PO TO, ABY JE ŁAMAĆ", "category": "POWIEDZENIE"},
+                {"text": "PROŚ A BĘDZIE CI DANE", "category": "POWIEDZENIE"},
+                {"text": "PRZECIWNOŚCI PRZYCIĄGAJĄ SIĘ", "category": "POWIEDZENIE"},
+                {"text": "PRZYGANIAŁ KOCIOŁ GARNKOWI, A SAM SMOLIŁ", "category": "POWIEDZENIE"},
+                {"text": "PRZYJDÓM ZAŚ", "category": "POWIEDZENIE"},
+                {"text": "PRZYJDZIE CZAS PRZYJDZIE RADA", "category": "POWIEDZENIE"},
+                {"text": "PSIE GŁOSY NIE IDĄ W NIEBIOSY", "category": "POWIEDZENIE"},
+                {"text": "PSY SZCZEKAJĄ, KARAWANA JEDZIE DALEJ", "category": "POWIEDZENIE"},
+                {"text": "PTAKI NIE SIEJĄ, NIE ORZĄ A TEŻ ŻYJĄ", "category": "POWIEDZENIE"},
+                {"text": "PYCHA I Z NIEBA SPYCHA", "category": "POWIEDZENIE"},
+                {"text": "RANNE WSTAWANIE I WCZESNA ŻENIACZKA JESZCZE NIKOMU NIE ZASZKODZIŁY", "category": "POWIEDZENIE"},
+                {"text": "RAZ KOZIE ŚMIERĆ", "category": "POWIEDZENIE"},
+                {"text": "RAZ NA RUSKI ROK", "category": "POWIEDZENIE"},
+                {"text": "RAZ NA WOZIE, RAZ POD WOZEM", "category": "POWIEDZENIE"},
+                {"text": "RĘKA MISTRZA WIĘCEJ ZNACZY NIŻ NARZĘDZIE U PARTACZY", "category": "POWIEDZENIE"},
+                {"text": "RUSKI MIESIĄC", "category": "POWIEDZENIE"},
+                {"text": "RYBA PSUJE SIĘ OD GŁOWY", "category": "POWIEDZENIE"},
+                {"text": "RYBY I DZIECI GŁOSU NIE MAJĄ", "category": "POWIEDZENIE"},
+                {"text": "SAM SOBIE STEREM, ŻEGLARZEM, OKRĘTEM", "category": "POWIEDZENIE"},
+                {"text": "SAM NIE JEDZ, A GOŚCIOM DAJ", "category": "POWIEDZENIE"},
+                {"text": "SAMOTNEMU CAŁY ŚWIAT PUSTYNIĄ", "category": "POWIEDZENIE"},
+                {"text": "SIEDZIEĆ JAK NA TURECKIM KAZANIU", "category": "POWIEDZENIE"},
+                {"text": "SKLEROZA NIE BOLI, ALE NACHODZIĆ SIĘ TRZEBA", "category": "POWIEDZENIE"},
+                {"text": "SKLEROZA NIE CHOROBA, TYLKO NOGI BOLĄ", "category": "POWIEDZENIE"},
+                {"text": "SŁOWO SIĘ RZEKŁO, KOBYŁKA U PŁOTA", "category": "POWIEDZENIE"},
+                {"text": "SPIESZ SIĘ POWOLI", "category": "POWIEDZENIE"},
+                {"text": "STARA MIŁOŚĆ NIE RDZEWIEJE", "category": "POWIEDZENIE"},
+                {"text": "STAREGO WRÓBLA NA PLEWY NIE ZŁAPIESZ", "category": "POWIEDZENIE"},
+                {"text": "STARYCH DRZEW SIĘ NIE PRZESADZA", "category": "POWIEDZENIE"},
+                {"text": "STAROPOLSKA GOŚCINNOŚĆ", "category": "POWIEDZENIE"},
+                {"text": "STAROŚĆ NIE RADOŚĆ, ŚMIERĆ NIE WESELE", "category": "POWIEDZENIE"},
+                {"text": "STOI JAK WÓŁ NA GRANICY", "category": "POWIEDZENIE"},
+                {"text": "STRACH MA WIELKIE OCZY", "category": "POWIEDZENIE"},
+                {"text": "STRZEŻ MNIE, BOŻE, OD PRZYJACIÓŁ, BO Z WROGAMI PORADZĘ SOBIE SAM", "category": "POWIEDZENIE"},
+                {"text": "STRZEŻONEGO PAN BÓG STRZEŻE", "category": "POWIEDZENIE"},
+                {"text": "STYCZEŃ BYWA ZWYKLE ŁAGODNY, GDY PAŹDZIERNIK ŚNIEŻNY I CHŁODNY", "category": "POWIEDZENIE"},
+                {"text": "STYCZEŃ GDY MROZEM WYGODZI, MARZEC Z KWIETNIEM WRAZ WYCHŁODZI", "category": "POWIEDZENIE"},
+                {"text": "STYCZEŃ ZAMGLONY, MARZEC ZAŚNIEŻONY", "category": "POWIEDZENIE"},
+                {"text": "SUCHY KWIECIEŃ, MOKRY MAJ, BĘDZIE ŻYTO JAKO GAJ", "category": "POWIEDZENIE"},
+                {"text": "SZCZĘŚLIWY, KTO NA ANNĘ UPATRZY SOBIE PANNĘ", "category": "POWIEDZENIE"},
+                {"text": "SZEWC BEZ BUTÓW CHODZI", "category": "POWIEDZENIE"},
+                {"text": "SZLACHCIC NA ZAGRODZIE RÓWNY WOJEWODZIE", "category": "POWIEDZENIE"},
+                {"text": "SZUKAJCIE, A ZNAJDZIECIE", "category": "POWIEDZENIE"},
+                {"text": "SZYBKA DECYZJA TO POŁOWA ZWYCIĘSTWA", "category": "POWIEDZENIE"},
+                {"text": "ŚCIANY MAJĄ USZY", "category": "POWIEDZENIE"},
+                {"text": "ŚMIAĆ SIĘ JAK GŁUPI DO SERA", "category": "POWIEDZENIE"},
+                {"text": "ŚMIAŁYM SZCZĘŚCIE SPRZYJA", "category": "POWIEDZENIE"},
+                {"text": "ŚMIERCI I DIABŁA NIGDY NIE TRZEBA PRZYWOŁYWAĆ", "category": "POWIEDZENIE"},
+                {"text": "ŚMIERCI NIE CZEKAJ, LEPIEJ UCIEKAJ", "category": "POWIEDZENIE"},
+                {"text": "ŚMIERCI WZYWAĆ NIE TRZEBA, BO SAMA PRZYJDZIE", "category": "POWIEDZENIE"},
+                {"text": "ŚMIERCI ŻYCZYĆ DLA SPADKU, NA ZŁE RADZIĆ DLA DATKU, KRZYWDZIĆ DLA DOSTATKU", "category": "POWIEDZENIE"},
+                {"text": "ŚMIERĆ CHOĆBY W MIODZIE, ZAWSZE JEST GORZKA", "category": "POWIEDZENIE"},
+                {"text": "ŚMIERĆ DOBREMU ŁAGODNA", "category": "POWIEDZENIE"},
+                {"text": "ŚMIERĆ I ŻONA W NIEBIE NAZNACZONA", "category": "POWIEDZENIE"},
+                {"text": "ŚMIERĆ MORALNA OD ŚMIERCI FIZYCZNEJ GORSZA", "category": "POWIEDZENIE"},
+                {"text": "ŚPIESZ SIĘ POWOLI", "category": "POWIEDZENIE"},
+                {"text": "ŚWIĘTA BARBARA PO WODZIE, BOŻE NARODZENIE PO LODZIE", "category": "POWIEDZENIE"},
+                {"text": "ŚWIĘTA DOROTA ZAPOWIADA ŚNIEGI I BŁOTA", "category": "POWIEDZENIE"},
+                {"text": "ŚWIĘTY ANTONI OD ZGUBY BRONI", "category": "POWIEDZENIE"},
+                {"text": "TAK TEŻ BYWA, PIES SIĘ TOPI… ŁAŃCUCH PŁYWA", "category": "POWIEDZENIE"},
+                {"text": "TAK KRAWIEC KRAJE, JAK MU MATERII STAJE", "category": "POWIEDZENIE"},
+                {"text": "TEN SIĘ NIE MYLI, KTO NIC NIE ROBI", "category": "POWIEDZENIE"},
+                {"text": "TEN SIĘ ŚMIEJE, KTO SIĘ ŚMIEJE OSTATNI", "category": "POWIEDZENIE"},
+                {"text": "TONĄCY BRZYTWY SIĘ CHWYTA", "category": "POWIEDZENIE"},
+                {"text": "TRAFIŁA KOSA NA KAMIEŃ", "category": "POWIEDZENIE"},
+                {"text": "TRAFIŁO SIĘ ŚLEPEJ KURZE ZIARNO", "category": "POWIEDZENIE"},
+                {"text": "TRENING CZYNI MISTRZA", "category": "POWIEDZENIE"},
+                {"text": "TYLKO TRZEWIK WIE, ŻE POŃCZOCHA DZIURAWA", "category": "POWIEDZENIE"},
+                {"text": "UDERZ W STÓŁ, A NOŻYCE SIĘ ODEZWĄ", "category": "POWIEDZENIE"},
+                {"text": "UFAJ! BÓG CI DOPOMOŻE, ALE PRACUJ SAM NIEBOŻE", "category": "POWIEDZENIE"},
+                {"text": "UWAŻAJCIE SE, GOSPODARZE: ŚWIĘTY JÓZEF GROCH SIAĆ KAŻE", "category": "POWIEDZENIE"},
+                {"text": "W KWIETNIU, GDY PSZCZOŁA JESZCZE NIERUCHLIWA, MOKRA WIOSNA ZWYKLE BYWA", "category": "POWIEDZENIE"},
+                {"text": "W LUTYM WODY WIELE, W LECIE GŁODNE CIELE", "category": "POWIEDZENIE"},
+                {"text": "W MAJU JAK W RAJU", "category": "POWIEDZENIE"},
+                {"text": "W MARCU JAK W GARNCU", "category": "POWIEDZENIE"},
+                {"text": "W MARCU KTO SIAĆ NIE ZACZYNA, DOBRA SWEGO ZAPOMINA", "category": "POWIEDZENIE"},
+                {"text": "W POCZĄTKU LATA PORANNE GRZMOTY SĄ ZAPOWIEDZIĄ RYCHŁEJ SŁOTY", "category": "POWIEDZENIE"},
+                {"text": "W STARYM PIECU DIABEŁ PALI", "category": "POWIEDZENIE"},
+                {"text": "W SZCZĘŚCIU MAŁO MIEJ NADZIEJE, BO SŁABO ŻNIE, KTO NIE SIEJE", "category": "POWIEDZENIE"},
+                {"text": "W ŚWIĘTEJ AGATY WYSCHNĄ NA PŁOCIE SZMATY", "category": "POWIEDZENIE"},
+                {"text": "WE WRZEŚNIU GDY TŁUSTE PTAKI, MRÓZ W ZIMIE NIE BYLE JAKI", "category": "POWIEDZENIE"},
+                {"text": "WERONIKA BIAŁĄ CHUSTĘ ZRZUCI, WIOSNA OD NAS SIĘ ODWRÓCI", "category": "POWIEDZENIE"},
+                {"text": "WIARA PRZENOSI GÓRY", "category": "POWIEDZENIE"},
+                {"text": "WIDZIAŁY GAŁY, CO BRAŁY", "category": "POWIEDZENIE"},
+                {"text": "WIELE SŁUCHAJ, MAŁO MÓW", "category": "POWIEDZENIE"},
+                {"text": "WPAŚĆ JAK ŚLIWKA W KOMPOT", "category": "POWIEDZENIE"},
+                {"text": "WSZĘDZIE DOBRZE, ALE W DOMU NAJLEPIEJ", "category": "POWIEDZENIE"},
+                {"text": "WYJĄTEK POTWIERDZA REGUŁĘ", "category": "POWIEDZENIE"},
+                {"text": "WSZYSTKIE DROGI PROWADZĄ DO RZYMU", "category": "POWIEDZENIE"},
+                {"text": "WSZYSTKO DOBRE, CO SIĘ DOBRZE KOŃCZY", "category": "POWIEDZENIE"},
+                {"text": "WYSZŁO SZYDŁO Z WORKA", "category": "POWIEDZENIE"},
+                {"text": "Z CHUDEGO RZEPAKU MAŁO OLEJU", "category": "POWIEDZENIE"},
+                {"text": "Z DESZCZU POD RYNNĘ", "category": "POWIEDZENIE"},
+                {"text": "Z DOBRYCH RODZICÓW DOBRZY POTOMKOWIE, ZE ZŁYCH ŹLI BYWAJĄ", "category": "POWIEDZENIE"},
+                {"text": "Z DZIECKIEM NA ODPUST, Z ZADROSNYM MĘŻEM NA ZABAWĘ, TO JEDNO", "category": "POWIEDZENIE"},
+                {"text": "Z ZATARGU BRACI WRÓG SIĘ BOGACI", "category": "POWIEDZENIE"},
+                {"text": "Z ŻONĄ I KUCHARZEM NIE KŁOĆ SIĘ PRZED OBIADEM", "category": "POWIEDZENIE"},
+                {"text": "ZA BYCZKA BĘDZIE CIELICZKA", "category": "POWIEDZENIE"},
+                {"text": "ZA DUKATA BRAT SPRZEDA BRATA", "category": "POWIEDZENIE"},
+                {"text": "ZA MŁODU GAŁĄZKI NACHYLAĆ POTRZEBA, BO KIEDY SIĘ ZROŚNIE, TĘDY SIĘ JUŻ ZŁAMIE", "category": "POWIEDZENIE"},
+                {"text": "ZA MUNDUREM PANNY SZNUREM", "category": "POWIEDZENIE"},
+                {"text": "ZA OJCÓW BŁĘDY POKUTUJĄ", "category": "POWIEDZENIE"},
+                {"text": "ZA PANIĄ MATKĄ IDZIE PACIERZ GŁADKO", "category": "POWIEDZENIE"},
+                {"text": "ZAPOMNIAŁ WÓŁ, KIEDY CIELĘCIEM BYŁ (SPOTYKANE TAKŻE JAKO ZAPOMNIAŁ WÓŁ, JAK CIELĘCIEM BYŁ)", "category": "POWIEDZENIE"},
+                {"text": "ZAWRZAŁO JAK W GARNKU", "category": "POWIEDZENIE"},
+                {"text": "ZŁA ŻONA JAK BĘBEN, KTÓRY USTAWICZNIE BIJE POBUDKĘ", "category": "POWIEDZENIE"},
+                {"text": "ZŁEGO SĄSIADA I KŁÓTNI W DOMU NIE ŻYCZYĆ NIKOMU", "category": "POWIEDZENIE"},
+                {"text": "ZŁEJ BALETNICY PRZESZKADZA I RĄBEK U SPÓDNICY", "category": "POWIEDZENIE"},
+                {"text": "ZŁODZIEJ DOMOWY GORSZY OD ROZBÓJNIKA", "category": "POWIEDZENIE"},
+                {"text": "ZŁY KOŃ I Z GÓRY NIE POCIĄGNIE", "category": "POWIEDZENIE"},
+                {"text": "ZŁY MĄŻ GORSZY JAK WĄŻ", "category": "POWIEDZENIE"},
+                {"text": "ZŁY OJCIEC RZADKO MA DOBREGO SYNA", "category": "POWIEDZENIE"},
+                {"text": "ZŁY TAM KIERMASZ BYWA, GDZIE ŻONA SWARLIWA", "category": "POWIEDZENIE"},
+                {"text": "ZŁY TO PTAK, CO SWE GNIAZDO PLUGAWI (SPOTYKANE TAKŻE JAKO ZŁY TO PTAK, CO SWE GNIAZDO KALA)", "category": "POWIEDZENIE"},
+                {"text": "ZNAĆ SIĘ NA CZYMŚ JAK WILK NA GWIAZDACH", "category": "POWIEDZENIE"},
+                {"text": "ZNALEŹĆ SIĘ MIĘDZY MŁOTEM A KOWADŁEM", "category": "POWIEDZENIE"},
+                {"text": "ZOBACZYŁA ŻABA, ŻE KONIE KUJĄ I SAMA NOGI NADSTAWIA", "category": "POWIEDZENIE"},
+                {"text": "Z DUŻEJ CHMURY MAŁY DESZCZ", "category": "POWIEDZENIE"},
+                {"text": "ŹDŹBŁO W OKU BLIŹNIEGO WIDZISZ, A BELKI W SWOIM NIE DOSTRZEGASZ", "category": "POWIEDZENIE"},
+                {"text": "ŹLE SIĘ DZIEJE W PAŃSTWIE DUŃSKIM", "category": "POWIEDZENIE"},
+                {"text": "ŻADNA PRACA NIE HAŃBI", "category": "POWIEDZENIE"},
+                {"text": "ŻAK, CO SIĘ UCZY BEZ KSIĘGI, NIE BĘDZIE TO DOKTOR TĘGI", "category": "POWIEDZENIE"},
+                {"text": "ŻEBY KÓZKA NIE SKAKAŁA, TO BY NÓŻKI NIE ZŁAMAŁA", "category": "POWIEDZENIE"},
+                {"text": "ŻOŁNIERZ STRZELA, PAN BÓG KULE NOSI", "category": "POWIEDZENIE"},
+                {"text": "ŻYCZLIWE SERCE TO NAJLEPSZE POKREWIEŃSTWO", "category": "POWIEDZENIE"},
+                {"text": "OSOBLIWY JEGOMOŚĆ", "category": "POSTAĆ"},
+            ]
+            
+            seconds = 0;
+            timerId = null;
+            function setHtml(id, html) {
+                document.getElementById(id).innerHTML = html;
+            }
+            function saveCounters() {
+                data = JSON.parse(localStorage.getItem("wheelOfFortune"));
+                if (!data) {
+                    data = {counters: []};
+                }
+                for (puzzle of puzzles) {
+                    counter = data.counters.find(c => c.text == puzzle.text);
+                    if(counter) {
+                        counter.value = puzzle.counter;
+                    } else {
+                        counter = {text: puzzle.text, value: puzzle.counter};
+                        data.counters.push(counter);
+                    }
+                }
+                data.counters.sort((a, b) => a.text.localeCompare(b.text));
+                localStorage.setItem("wheelOfFortune", JSON.stringify(data));
+            }
+            function loadCounters() {
+                data = JSON.parse(localStorage.getItem("wheelOfFortune"));
+                if (!data) {
+                    return;
+                }
+                for (counter of data.counters) {
+                    puzzle = puzzles.find(p => p.text == counter.text);
+                    if (puzzle) {
+                        puzzle.counter = counter.value
+                    }
+                }
+            }
+            function oneLetter() {
+                letters = 'AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŻŹ'.split('');
+                letters = letters.filter(l => puzzles[currentPuzzle].text.includes(l));
+                letters = letters.filter(l => !getCurrentFilter().includes(l));
+                if (letters.length == 0) {
+                    return;
+                }
+                letter = letters[Math.floor(Math.random()*letters.length)];
+                shownLetters = shownLetters + letter;
+                updateView();
+            }
+            function initPuzzles() {
+                function testPuzzle(puzzle) {
+                    words = splitWords(puzzle.text);
+                    letters = fillLetters(words);
+                    return letters !== null;
+                }
+                puzzles = puzzles.filter(testPuzzle);
+                for (let i = 0; i < puzzles.length; i++) {
+                    puzzles[i].id = i;
+                    puzzles[i].counter = 0;
+                }
+                loadCounters();
+            }
+            function selectNextPuzzle() {
+                shownLetters = '';
+                minCounter = -1;
+                allowedPuzzles = [];
+                while (allowedPuzzles.length == 0 && minCounter < 10) {
+                    minCounter += 1;
+                    allowedPuzzles = puzzles.filter(p => p["counter"] == minCounter);
+                }
+                currentId = Math.floor(Math.random()*allowedPuzzles.length);
+                currentPuzzle = allowedPuzzles[currentId]["id"];
+            }
+            function onstart() {
+                initPuzzles();
+                selectNextPuzzle();
+                updateView();
+            }
+            function displayTimer() {
+                if (seconds == 0) {
+                    document.getElementById("timer").classList.add("timeout");
+                }
+                minutes = '' + Math.floor(seconds / 60);
+                digit10 = '' + Math.floor(seconds / 10) % 10;
+                digit1 = '' + seconds % 10;
+                setHtml("timer", minutes + ':' + digit10 + digit1);
+            }
+            function startTimer() {
+                seconds = 10;
+                displayTimer();
+                nextSecond = function() {
+                    if (seconds > 0) {
+                        seconds -= 1;
+                        displayTimer();
+                        timerId = setTimeout(() => nextSecond(), 1000);
+                    }
+                }
+                timerId = setTimeout(nextSecond, 1000);
+            }
+            function stopTimer() {
+                clearTimeout(timerId);
+                if (seconds > 0) {
+                    document.getElementById("timer").classList.add("success");
+                }
+            }
+            function clearTimer() {
+                clearTimeout(timerId);
+                setHtml("timer", "");
+                document.getElementById("timer").classList.remove("timeout");
+                document.getElementById("timer").classList.remove("success");
+            }
+            function updateView() {
+                showPuzzle(puzzles[currentPuzzle]);
+                if (stage == 0) {
+                    setHtml("button1", "RSTLNE");
+                }
+                if (stage == 1) {
+                    setHtml("button1", "WZKA");
+                }
+                if (stage == 2) {
+                    setHtml("button1", "POKAŻ");
+                }
+                if (stage == 3) {
+                    setHtml("button1", "NASTĘPNE");
+                }
+            }
+            function proceed(event) {
+                if (stage == 1) {
+                    startTimer();
+                }
+                if (stage == 2) {
+                    stopTimer();
+                    puzzles[currentPuzzle].counter++;
+                    saveCounters();
+                }
+                if (stage == 3) {
+                    clearTimer();
+                    selectNextPuzzle();
+                }
+                stage = (stage + 1) % 4
+                updateView();
+                event.preventDefault();
+            }
+            function buttonMouseOver(id) {
+                document.getElementById(id).classList.add("mouseover");
+            }
+            function buttonMouseOut(id) {
+                document.getElementById(id).classList.remove("mouseover");
+            }
+            function getCurrentFilter() {
+                if (stage == 0) {
+                    filter = ",-";
+                }
+                if (stage == 1) {
+                    filter = ",-RSTLNE";
+                }
+                if (stage == 2) {
+                    filter = ",-RSTLNEWZKA";
+                }
+                if (stage == 3) {
+                    filter = null;
+                }
+                if (filter != null) {
+                    filter = filter + shownLetters;
+                }
+                return filter;
+            }
+            function showPuzzle(puzzle) {
+                filter = getCurrentFilter();
+                displayText(puzzle["text"], filter);
+                displayCategory(puzzle["category"]);
+            }
+            function displayCategory(category) {
+                document.getElementById("category").innerHTML = category;
+            }
+            function displayText(text, filter = null) {
+                function filterLetters(letters, filter) {
+                    if (filter == null) {
+                        return letters;
+                    } else {
+                        function mapLetter(letter) {
+                            if (filter.includes(letter) || letter == "_") {
+                                return letter;
+                            } else {
+                                return ".";
+                            }
+                        }
+                        return letters.map(row => row.map(mapLetter));
+                    }
+                }
+                words = splitWords(text);
+                letters = fillLetters(words);
+                if (letters == null) {
+                    return null;
+                } else {
+                    letters = filterLetters(letters, filter);
+                    displayLetters(letters);
+                    return letters;
+                }
+            }
+            function splitWords(text) {
+                text = text.replaceAll("-", "- ");
+                words = text.split(' ');
+                if (words.length == 1) {
+                    return [words];
+                }
+                left_remainder = 13;
+                middle_remainder = 13;
+                middle2_remainder = 13;
+                right_remainder = 13;
+                l = 0;
+                r = words.length - 1;
+                left = [];
+                middle = [];
+                middle2 = [];
+                right = [];
+                while (l <= r) {
+                    if (left_remainder >= right_remainder) {
+                        word = words[l];
+                        left.push(word);
+                        l++;
+                        left_remainder -= (word.length + 1);
+                    } else {
+                        word = words[r];
+                        right.unshift(word);
+                        r--;
+                        right_remainder -= (word.length + 1);
+                    }
+                }
+                while (left_remainder < 0) {
+                    word = left.pop();
+                    middle.unshift(word);
+                    middle_remainder -= (word.length + 1);
+                    left_remainder += (word.length + 1);
+                }
+                while (right_remainder < 0) {
+                    word = right.shift();
+                    middle.push(word);
+                    middle_remainder -= (word.length + 1);
+                    right_remainder += (word.length + 1);
+                }
+                while (middle_remainder < 0) {
+                    word = middle.pop();
+                    middle2.unshift(word);
+                    middle2_remainder -= (word.length + 1);
+                    middle_remainder += (word.length + 1);
+                }
+                return [left, middle, middle2, right].filter(ws => ws.length > 0);
+
+            }
+            function fillLetters(words) {
+                function generateLetters(words, length) {
+                    joined = words.join("_");
+                    joined = joined.replaceAll("-_", "-");
+                    padding = length - joined.length;
+                    if (padding < 0) {
+                        return null;
+                    }
+                    left_padding = Math.floor(padding / 2);
+                    right_padding = padding - left_padding;
+                    left = Array(left_padding).fill("_");
+                    right = Array(right_padding).fill("_");
+                    middle = joined.split("");
+                    return left.concat(middle).concat(right);
+                }
+                letters = [Array(12).fill("_"), Array(14).fill("_"), Array(14).fill("_"), Array(12).fill("_")];
+                if (words.length == 1) {
+                    letters[1] = generateLetters(words[0], 14);
+                }
+                if (words.length == 2) {
+                    letters[1] = generateLetters(words[0], 14);
+                    letters[2] = generateLetters(words[1], 14);
+                }
+                if (words.length == 3) {
+                    letters[0] = generateLetters(words[0], 12);
+                    letters[1] = generateLetters(words[1], 14);
+                    letters[2] = generateLetters(words[2], 14);
+                }
+                if (words.length == 4) {
+                    letters[0] = generateLetters(words[0], 12);
+                    letters[1] = generateLetters(words[1], 14);
+                    letters[2] = generateLetters(words[2], 14);
+                    letters[3] = generateLetters(words[3], 12);
+                }
+                if (letters.some(x => x == null)) {
+                    return null;
+                }
+                return letters;
+            }
+            function displayLetters(letters) {
+                document.getElementById("board").innerHTML = "";
+                for (const row of letters) {
+                    const newRow = document.createElement("div");
+                    newRow.classList.add('row');
+                    const newRowWrapper = document.createElement("div");
+                    newRowWrapper.classList.add('rowwrapper');
+                    for (const letter of row) {
+                        const letterbox = document.createElement("div");
+                        letterbox.classList.add('letterbox');
+                        if (letter != "_") {
+                            letterbox.classList.add('letter');
+                            if (letter != ".") {
+                                const content = document.createTextNode(letter);
+                                letterbox.appendChild(content);
+                            }
+                        }
+                        newRow.appendChild(letterbox);
+                    }
+                    newRowWrapper.appendChild(newRow);
+                    document.getElementById("board").appendChild(newRowWrapper);
+                }
+            }
+
+        </script>
+        <style>
+            body {
+                user-select: none;
+                background-image: linear-gradient(180deg, #bbb, #fff, #bbb);
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            div.rowwrapper {
+                text-align: center;
+            }
+            div.letterbox {
+                font-weight: bold;
+                border-width: 2px;
+                border-radius: 8px;
+                border-style: solid;
+                border-color: #666;
+                width: 40px;
+                height: 60px;
+                line-height: 60px;
+                text-align: center;
+                background: radial-gradient(#28f, #06f);
+                margin: 5px;
+                display: inline-block;
+                font-size: 32px;
+                vertical-align: middle;
+            }
+            div.letterbox.letter {
+                border-color: #aaa;
+                background: #fff;
+            }
+            div.row {
+                display: inline-block;
+            }
+            div.topbar {
+                text-align: center;
+            }
+            div.category, div#timer, div.button {
+                border-width: 2px;
+                border-radius: 8px;
+                border-style: solid;
+                border-color: #666;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                margin: 5px;
+                display: inline-block;
+                font-size: 20px;
+                vertical-align: middle;
+            }
+            div.category {
+                width: 30%;
+                font-weight: bold;
+                background: #fff;
+            }
+            div.button {
+                border-color: #666;
+                background: #ddd;
+            }
+            div#button1 {
+                width: 15%;
+            }
+            div#button2 {
+                width: 10%;
+            }
+            div.button.mouseover {
+                border-color: #888;
+                background: #eee;
+            }
+            div#timer {
+                border-color: #666;
+                background: #ddd;
+                width: 20%;
+            }
+            div#timer.timeout {
+                border-color: #800;
+                background: #f88;
+                font-weight: bold;
+                color: #800;
+            }
+            div#timer.success {
+                border-color: #080;
+                background: #8f8;
+                font-weight: bold;
+                color: #080;
+            }
+        </style>
+        <meta charset="UTF-8">
+    </head>
+    <body onload="onstart()">
+        <div class="topbar">
+            <div id="timer"></div>
+            <div class="category">kategoria: <span id="category"></span></div>
+            <div class="button" id="button2" onclick="oneLetter(event)" onmouseover="buttonMouseOver('button2')" onmouseout="buttonMouseOut('button2')">LITERA</div>
+            <div class="button" id="button1" onclick="proceed(event)" onmouseover="buttonMouseOver('button1')" onmouseout="buttonMouseOut('button1')"></div>
+        </div>
+        <div id="board">
+        </div>
+    </body>
+</html>
